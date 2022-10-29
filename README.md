@@ -1,16 +1,20 @@
 # project_frontend_2
 
-A new Flutter project.
+Trabajo para el segundo examen Parcial Frontend
 
-## Getting Started
+## Requisitos
 
-This project is a starting point for a Flutter application.
+* Flutter con la version de dart >= 2.18.2
 
-A few resources to get you started if this is your first Flutter project:
+## Instalacion
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+* Clonar el Proyecto
+* posicionarte en la carpeta del proyecto y ejecutar el comando para descargar las dependencias
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+```bash
+flutter pub get
+```
+
+## Recomendaciones
+
+Descargar el siguiente paquete de plugins para VSCODE [haciendo click aqui](https://marketplace.visualstudio.com/items?itemName=GulajavaMinistudio.complete-flutter-extension-pack)
