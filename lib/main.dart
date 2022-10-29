@@ -1,6 +1,12 @@
 import 'package:flutter/material.dart';
 
-void main() => runApp(const MyApp());
+//Rutas
+import 'package:project_frontend_2/routes/app_routes.dart';
+import 'package:project_frontend_2/theme/app_theme.dart';
+
+void main() {
+  runApp(const MyApp());
+}
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
@@ -8,15 +14,12 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       title: 'Material App',
-      home: Scaffold(
-        appBar: AppBar(
-          title: const Text('Material App Bar'),
-        ),
-        body: const Center(
-          child: Text('Hello World'),
-        ),
-      ),
+      initialRoute: AppRoutes.initialRoute,
+      onGenerateRoute: AppRoutes.onGenerateRoute,
+      routes: AppRoutes.getAppRoutes(),
+      theme: AppTheme.lightTheme,
     );
   }
 }
