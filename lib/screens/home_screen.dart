@@ -22,46 +22,37 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      title: 'Material App',
-      home: Scaffold(
-        appBar: AppBar(
-          title: const Text('Pantalla principal'),
-        ),
-        body: ListView(
-          scrollDirection: Axis.vertical,
-          children: [
-            FutureBuilder(
-              future: _listadoPacientes,
-              builder: ((context, snapshot) {
-                if (snapshot.hasData) {
-                  return ListView.builder(
-                    shrinkWrap: true,
-                    itemCount: snapshot.data!.length,
-                    itemBuilder: (context, index) {
-                      return CustomPatienCard(
-                        id: snapshot.data![index].id,
-                        nombre: snapshot.data![index].nombre,
-                        apellido: snapshot.data![index].apellido,
-                        telefono: snapshot.data![index].telefono,
-                        email: snapshot.data![index].email,
-                        ruc: snapshot.data![index].ruc,
-                        cedula: snapshot.data![index].cedula,
-                        tipoPersona: snapshot.data![index].tipoPersona,
-                        fechaNacimiento: snapshot.data![index].fechaNacimiento,
-                      );
-                    },
-                  );
-                } else if (snapshot.hasError) {
-                  return const Text('Error al obtener los pacientes');
-                } else {
-                  return const Center(child: CircularProgressIndicator());
-                }
-              }),
-            )
-          ],
-        ),
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('Pantalla principal'),
+      ),
+      body: FutureBuilder(
+        future: _listadoPacientes,
+        builder: ((context, snapshot) {
+          if (snapshot.hasData) {
+            return ListView.builder(
+              shrinkWrap: true,
+              itemCount: snapshot.data!.length,
+              itemBuilder: (context, index) {
+                return CustomPatienCard(
+                  id: snapshot.data![index].id,
+                  nombre: snapshot.data![index].nombre,
+                  apellido: snapshot.data![index].apellido,
+                  telefono: snapshot.data![index].telefono,
+                  email: snapshot.data![index].email,
+                  ruc: snapshot.data![index].ruc,
+                  cedula: snapshot.data![index].cedula,
+                  tipoPersona: snapshot.data![index].tipoPersona,
+                  fechaNacimiento: snapshot.data![index].fechaNacimiento,
+                );
+              },
+            );
+          } else if (snapshot.hasError) {
+            return const Text('Error al obtener los pacientes');
+          } else {
+            return const Center(child: CircularProgressIndicator());
+          }
+        }),
       ),
     );
   }
