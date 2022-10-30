@@ -11,5 +11,13 @@ class AppTheme {
       shape: const StadiumBorder(),
       elevation: 0,
     )),
+
+    // ButtonThemeData
+    elevatedButtonTheme: ElevatedButtonThemeData(
+      style: ElevatedButton.styleFrom(
+        primary: primary,
+        elevation: 10,
+      ),
+    ),
   );
 }
