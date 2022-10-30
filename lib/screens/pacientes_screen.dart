@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:project_frontend_2/models/paciente.dart';
+import 'package:project_frontend_2/screens/agregar_paciente_screen_page.dart';
 import 'package:project_frontend_2/services/services.dart';
+import 'package:project_frontend_2/theme/app_theme.dart';
 import 'package:project_frontend_2/widgets/custom_patien_card.dart';
+
+import '../routes/app_routes.dart';
 
 class PacienteScreen extends StatefulWidget {
   const PacienteScreen({super.key});
@@ -53,6 +57,13 @@ class _PacienteScreen extends State<PacienteScreen> {
             return const Center(child: CircularProgressIndicator());
           }
         }),
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          Navigator.pushNamed(context, 'AgregarPaciente');
+        },
+        backgroundColor: AppTheme.primary,
+        child: const Icon(Icons.add),
       ),
     );
   }

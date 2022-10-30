@@ -2,13 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:project_frontend_2/models/models.dart';
 
 import '../screens/screens.dart';
+import 'pacientes_routes.dart';
 
 class AppRoutes {
   static const initialRoute = 'home';
 
   //Aqui dentro agregamos las opciones del menu
   static final menuOptions = <MenuOption>[
-    //Este es un ejemplo de como usar el menu opcion con la lista de pacientes
     const MenuOption(
       name: 'Pacientes',
       icon: Icons.person,
@@ -34,6 +34,12 @@ class AppRoutes {
     for (final option in menuOptions) {
       appRoutes.addAll({option.route: (BuildContext context) => option.screen});
     }
+
+    //Agregamos todas las rutas para la pantalla de pacientes
+    for (final option in PacientesRoutes.rutas) {
+      appRoutes.addAll({option.route: (BuildContext context) => option.screen});
+    }
+
     return appRoutes;
   }
 

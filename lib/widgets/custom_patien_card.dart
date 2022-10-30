@@ -28,6 +28,48 @@ class CustomPatienCard extends StatelessWidget {
     this.fechaNacimiento,
   }) : super(key: key);
 
+  //Agregamos el campo de informacion de un cliente en un modal
+  void displayDialogAndroid(BuildContext context) {
+    showDialog(
+      barrierDismissible: true,
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          elevation: 5,
+          title: nombre != null
+              ? Text('$nombre $apellido')
+              : const Text('Paciente'),
+          shape: RoundedRectangleBorder(
+              borderRadius: BorderRadiusDirectional.circular(10)),
+          content: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              const Text('Datos del paciente'),
+              const SizedBox(height: 20),
+              Text('Telefono: $telefono'),
+              Text('Email: $email'),
+              Text('Ruc: $ruc'),
+              Text('Cedula: $cedula'),
+              Text('Tipo de persona: $tipoPersona'),
+              Text('Fecha de nacimiento: $fechaNacimiento'),
+            ],
+          ),
+          actions: [
+            TextButton(
+              onPressed: () => Navigator.pop(context),
+              child: const Text('Aceptar'),
+            ),
+            TextButton(
+              onPressed: () => Navigator.pop(context),
+              child:
+                  const Text('Cancelar', style: TextStyle(color: Colors.red)),
+            )
+          ],
+        );
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Card(
@@ -44,12 +86,18 @@ class CustomPatienCard extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
                 TextButton(
-                  onPressed: () {},
-                  child: const Text('Informacion'),
+                  onPressed: () => displayDialogAndroid(context),
+                  child: const Text(
+                    'Informacion',
+                    style: TextStyle(color: AppTheme.primary),
+                  ),
                 ),
                 TextButton(
                   onPressed: () {},
-                  child: const Text('Editar'),
+                  child: const Text(
+                    'Editar',
+                    style: TextStyle(color: AppTheme.primary),
+                  ),
                 ),
               ],
             ),
