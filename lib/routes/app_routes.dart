@@ -16,7 +16,7 @@ class AppRoutes {
       screen: PacienteScreen(),
     ),
     const MenuOption(
-      name: 'Recerva de turno',
+      name: 'Reserva de turno',
       icon: Icons.calendar_today_sharp,
       route: 'reserva',
       screen: PacienteScreen(),
