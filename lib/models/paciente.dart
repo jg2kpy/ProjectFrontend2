@@ -1,5 +1,3 @@
-import 'package:flutter/material.dart' show IconData, Widget;
-
 class Paciente {
   final int? id;
   final String? nombre;
