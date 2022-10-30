@@ -3,14 +3,14 @@ import 'package:project_frontend_2/models/paciente.dart';
 import 'package:project_frontend_2/services/services.dart';
 import 'package:project_frontend_2/widgets/custom_patien_card.dart';
 
-class HomeScreen extends StatefulWidget {
-  const HomeScreen({super.key});
+class PacienteScreen extends StatefulWidget {
+  const PacienteScreen({super.key});
 
   @override
-  State<HomeScreen> createState() => _HomeScreenState();
+  State<PacienteScreen> createState() => _PacienteScreen();
 }
 
-class _HomeScreenState extends State<HomeScreen> {
+class _PacienteScreen extends State<PacienteScreen> {
   late Future<List<Paciente>> _listadoPacientes;
 
   @override
@@ -24,7 +24,7 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Pantalla principal'),
+        title: const Text('Pacientes'),
       ),
       body: FutureBuilder(
         future: _listadoPacientes,

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:project_frontend_2/models/models.dart';
 
-import '../screens/home_screen.dart';
+import '../screens/screens.dart';
 
 class AppRoutes {
   static const initialRoute = 'home';
@@ -19,7 +19,7 @@ class AppRoutes {
 
   static Route<dynamic> onGenerateRoute(RouteSettings settings) {
     return MaterialPageRoute(
-      builder: (context) => const HomeScreen(),
+      builder: (context) => const PacienteScreen(),
     );
   }
 }
