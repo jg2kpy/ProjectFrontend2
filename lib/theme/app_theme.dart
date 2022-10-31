@@ -19,5 +19,20 @@ class AppTheme {
         elevation: 10,
       ),
     ),
+
+    // TextFieldTheme
+    inputDecorationTheme: const InputDecorationTheme(
+      floatingLabelStyle: TextStyle(color: primary),
+      enabledBorder: OutlineInputBorder(
+        borderSide: BorderSide(color: primary),
+      ),
+      focusedBorder: OutlineInputBorder(
+        borderSide: BorderSide(color: primary),
+        borderRadius: BorderRadius.zero,
+      ),
+      border: OutlineInputBorder(
+        borderRadius: BorderRadius.zero,
+      ),
+    ),
   );
 }
