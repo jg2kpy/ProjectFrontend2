@@ -115,6 +115,7 @@ class AgregarPacienteScreen extends StatelessWidget {
                 ),
                 ElevatedButton(
                   onPressed: () {
+                    print(formValues);
                     //PatientsService.addPaciente(formValues);
                   },
                   child: const Text('Agregar'),
