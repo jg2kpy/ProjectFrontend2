@@ -6,7 +6,11 @@ class Ficha {
   final String? observacion;
   final int? idLocal;
   final int? idEmpleado;
+  final String? nombreEmpleado;
+  final String? apellidoEmpleado;
   final int? idCliente;
+  final String? nombreCliente;
+  final String? apellidoCliente;
   final int? idTipoProducto;
   final String? fechaHoraCadena;
   final String? fechaHoraCadenaFormateada;
@@ -27,7 +31,11 @@ class Ficha {
       this.todosLosCampos,
       this.idLocal,
       this.idEmpleado,
+      this.nombreEmpleado,
+      this.apellidoEmpleado,
       this.idCliente,
+      this.nombreCliente,
+      this.apellidoCliente,
       this.idTipoProducto
     }
   );

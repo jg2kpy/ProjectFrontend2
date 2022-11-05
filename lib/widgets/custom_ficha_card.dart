@@ -12,7 +12,11 @@ class CustomFichaCard extends StatelessWidget {
   final String? observacion;
   final int? idLocal;
   final int? idEmpleado;
+  final String? nombreEmpleado;
+  final String? apellidoEmpleado;
   final int? idCliente;
+  final String? nombreCliente;
+  final String? apellidoCliente;
   final int? idTipoProducto;
   final String? fechaHoraCadena;
   final String? fechaHoraCadenaFormateada;
@@ -34,7 +38,11 @@ class CustomFichaCard extends StatelessWidget {
       this.todosLosCampos,
       this.idLocal,
       this.idEmpleado,
+      this.nombreEmpleado,
+      this.apellidoEmpleado,
       this.idCliente,
+      this.nombreCliente,
+      this.apellidoCliente,
       this.idTipoProducto
   }) : super(key: key);
 
@@ -66,7 +74,11 @@ class CustomFichaCard extends StatelessWidget {
               Text('todosLosCampos: $todosLosCampos'),
               Text('idLocal: $idLocal'),
               Text('idEmpleado: $idEmpleado'),
+              Text('nombreEmpleado: $nombreEmpleado'),
+              Text('apellidoEmpleado: $apellidoEmpleado'),
               Text('idCliente: $idCliente'),
+              Text('nombreCliente: $nombreCliente'),
+              Text('apellidoCliente: $apellidoCliente'),
               Text('idTipoProducto: $idTipoProducto'),
             ],
           ),

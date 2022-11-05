@@ -22,7 +22,11 @@ class FichaService {
           observacion: item["observacion"],
           idLocal: item["idLocal"]["idLocal"],
           idEmpleado: item["idEmpleado"]["idPersona"],
+          nombreEmpleado: item["idEmpleado"]["nombre"],
+          apellidoEmpleado: item["idEmpleado"]["apellido"],
           idCliente: item["idCliente"]["idPersona"],
+          nombreCliente: item["idCliente"]["nombre"],
+          apellidoCliente: item["idCliente"]["apellido"],
           idTipoProducto: item["idTipoProducto"]["idTipoProducto"],
           fechaHoraCadena: item["fechaHoraCadena"],
           fechaHoraCadenaFormateada: item["fechaHoraCadenaFormateada"],
@@ -30,6 +34,7 @@ class FichaService {
           fechaHastaCadena: item["fechaHastaCadena"],
           todosLosCampos: item["todosLosCampos"],
         ));
+        print(item["fechaDesdeCadena"]);
       }
       return listaFicha;
     } else {
