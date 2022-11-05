@@ -31,4 +31,28 @@ class PatientsService {
       throw Exception('Error al obtener los pacientes');
     }
   }
+
+  static Future<String> agregarPaciente(Map<String, String> formValues) async {
+    Uri uri = Uri.https(url, '/stock-nutrinatalia/persona');
+
+    print('JsonEncode');
+    print(jsonEncode(formValues));
+
+    final response = await http.post(
+      uri,
+      headers: <String, String>{
+        'Content-Type': 'application/json; charset=UTF-8',
+      },
+      body: jsonEncode(formValues),
+    );
+
+    if (response.statusCode == 301 || response.statusCode == 201) {
+      print(response.statusCode);
+      return 'OK';
+    } else {
+      print(response.body);
+      print(response.statusCode);
+      throw Exception('Error');
+    }
+  }
 }
