@@ -16,6 +16,19 @@ class FichaService {
       for (var item in data['lista']) {
         listaFicha.add(Ficha(
           idFichaClinica: item["idFichaClinica"],
+          fechaHora: item["fechaHora"],
+          motivoConsulta: item["motivoConsulta"],
+          diagnostico: item["diagnostico"],
+          observacion: item["observacion"],
+          idLocal: item["idLocal"]["idLocal"],
+          idEmpleado: item["idEmpleado"]["idPersona"],
+          idCliente: item["idCliente"]["idPersona"],
+          idTipoProducto: item["idTipoProducto"]["idTipoProducto"],
+          fechaHoraCadena: item["fechaHoraCadena"],
+          fechaHoraCadenaFormateada: item["fechaHoraCadenaFormateada"],
+          fechaDesdeCadena: item["fechaDesdeCadena"],
+          fechaHastaCadena: item["fechaHastaCadena"],
+          todosLosCampos: item["todosLosCampos"],
         ));
       }
       return listaFicha;

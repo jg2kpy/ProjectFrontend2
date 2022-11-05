@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:project_frontend_2/widgets/custom_ficha_card.dart';
 
 import '../models/models.dart';
 import '../services/ficha_service.dart';
@@ -27,7 +28,7 @@ class _FichaScreenState extends State<FichaScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Ficha screeen'),
+        title: const Text('Fichas clinicas'),
       ),
       body: FutureBuilder(
         future: _listadoFicha,
@@ -37,8 +38,22 @@ class _FichaScreenState extends State<FichaScreen> {
               shrinkWrap: true,
               itemCount: snapshot.data!.length,
               itemBuilder: (context, index) {
-                int? aux = snapshot.data![index].idFichaClinica;
-                return Text("$aux");
+                return CustomFichaCard(
+                  idFichaClinica: snapshot.data![index].idFichaClinica,
+                  fechaHora: snapshot.data![index].fechaHora,
+                  motivoConsulta: snapshot.data![index].motivoConsulta,
+                  diagnostico: snapshot.data![index].diagnostico,
+                  observacion: snapshot.data![index].observacion,
+                  idLocal: snapshot.data![index].idLocal,
+                  idEmpleado: snapshot.data![index].idEmpleado,
+                  idCliente: snapshot.data![index].idCliente,
+                  idTipoProducto: snapshot.data![index].idTipoProducto,
+                  fechaHoraCadena: snapshot.data![index].fechaHoraCadena,
+                  fechaHoraCadenaFormateada: snapshot.data![index].fechaHoraCadenaFormateada,
+                  fechaDesdeCadena: snapshot.data![index].fechaDesdeCadena,
+                  fechaHastaCadena: snapshot.data![index].fechaHastaCadena,
+                  todosLosCampos: snapshot.data![index].todosLosCampos,
+                );
               },
             );
           } else if (snapshot.hasError) {
