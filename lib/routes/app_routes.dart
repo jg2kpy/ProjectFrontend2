@@ -25,7 +25,7 @@ class AppRoutes {
       name: 'Ficha clinica',
       icon: Icons.description_outlined,
       route: 'ficha',
-      screen: PacienteScreen(),
+      screen: FichaScreen(),
     ),
   ];
 
