@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:project_frontend_2/models/models.dart';
+import 'package:project_frontend_2/screens/reserva_screen.dart';
 
 import '../screens/screens.dart';
 import 'pacientes_routes.dart';
@@ -19,7 +20,7 @@ class AppRoutes {
       name: 'Reserva de turno',
       icon: Icons.calendar_today_sharp,
       route: 'reserva',
-      screen: PacienteScreen(),
+      screen: ReservaScreen(),
     ),
     const MenuOption(
       name: 'Ficha clinica',
