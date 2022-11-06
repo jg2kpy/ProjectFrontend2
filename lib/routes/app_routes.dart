@@ -5,7 +5,7 @@ import '../screens/screens.dart';
 import 'pacientes_routes.dart';
 
 class AppRoutes {
-  static const initialRoute = 'home';
+  static const initialRoute = 'login';
 
   //Aqui dentro agregamos las opciones del menu
   static final menuOptions = <MenuOption>[
@@ -40,12 +40,15 @@ class AppRoutes {
       appRoutes.addAll({option.route: (BuildContext context) => option.screen});
     }
 
+    //Agregamos la pantalla de home como una ruta
+    appRoutes.addAll({'home': (BuildContext context) => const HomeScreen()});
+
     return appRoutes;
   }
 
   static Route<dynamic> onGenerateRoute(RouteSettings settings) {
     return MaterialPageRoute(
-      builder: (context) => const HomeScreen(),
+      builder: (context) => const LoginScreen(),
     );
   }
 }

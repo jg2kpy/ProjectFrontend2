@@ -2,11 +2,11 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:project_frontend_2/models/models.dart';
 
-class PatientsService {
+class LoginService {
   static String url = 'equipoyosh.com';
 
-  static Future<List<Paciente>> getPacientes() async {
-    List<Paciente> listaPacientes = [];
+  static Future<int> iniciarSecion(Map<String, String> formValues) async {
+    Paciente pacienteActual;
 
     Uri uri = Uri.http(url, '/stock-nutrinatalia/persona');
 
@@ -14,7 +14,7 @@ class PatientsService {
     if (response.statusCode == 200) {
       final data = jsonDecode(response.body);
       for (var item in data['lista']) {
-        listaPacientes.add(Paciente(
+        pacienteActual = Paciente(
           id: item["idPersona"],
           apellido: item["apellido"],
           cedula: item["cedula"],
@@ -24,29 +24,16 @@ class PatientsService {
           ruc: item["ruc"],
           telefono: item["telefono"],
           tipoPersona: item["tipoPersona"],
-        ));
+        );
+
+        if (pacienteActual.nombre == formValues['usuario'] && '12345' == formValues['contrasena']) {
+          return 1;
+        }
       }
-      return listaPacientes;
+
+      return 0;
     } else {
-      throw Exception('Error al obtener los pacientes');
-    }
-  }
-
-  static Future<String> agregarPaciente(Map<String, String> formValues) async {
-    Uri uri = Uri.https(url, '/stock-nutrinatalia/persona');
-
-    final response = await http.post(
-      uri,
-      headers: <String, String>{
-        'Content-Type': 'application/json; charset=UTF-8',
-      },
-      body: jsonEncode(formValues),
-    );
-
-    if (response.statusCode == 301 || response.statusCode == 201) {
-      return 'OK';
-    } else {
-      throw Exception('Error');
+      return 0;
     }
   }
 }

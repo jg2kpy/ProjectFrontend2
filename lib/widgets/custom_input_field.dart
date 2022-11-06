@@ -32,15 +32,10 @@ class CustomInputField extends StatelessWidget {
       keyboardType: keyboardType == null ? null : TextInputType.emailAddress,
       obscureText: obscureText == null ? false : true,
       onChanged: (value) => formValues[formProperty] = value,
-      validator: (value) {
-        if (value == null) return 'este campo es requerido';
-        return value.length < 3 ? 'Minimo 3 letras' : null;
-      },
       autovalidateMode: AutovalidateMode.onUserInteraction,
       decoration: InputDecoration(
         hintText: hintText,
         labelText: labelText,
-        helperText: helperText,
         icon: icon == null ? null : Icon(icon),
       ),
     );
