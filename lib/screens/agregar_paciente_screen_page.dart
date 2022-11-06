@@ -100,23 +100,35 @@ class AgregarPacienteScreen extends StatelessWidget {
                 DateTimeFormField(
                   decoration: const InputDecoration(
                     border: OutlineInputBorder(),
-                    helperText: 'Fecha de Nacimiento',
                     hintText: 'Fecha de Nacimiento',
                     labelText: 'Fecha de Nacimiento',
                     icon: Icon(Icons.date_range),
                   ),
                   mode: DateTimeFieldPickerMode.date,
                   autovalidateMode: AutovalidateMode.always,
-                  validator: (e) =>
-                      (e?.day ?? 0) == 1 ? 'Please not the first day' : null,
                   onDateSelected: (DateTime value) {
                     formValues['fechaNacimiento'] = value.toString();
                   },
                 ),
                 ElevatedButton(
                   onPressed: () {
-                    print(formValues);
-                    //PatientsService.addPaciente(formValues);
+                    late Future<String> respuesta = PatientsService.agregarPaciente(formValues);
+                    respuesta.then(
+                      (value) => {
+                        if (value == 'OK')
+                          {
+                            Navigator.pushNamed(context, 'pacientes'),
+                          }
+                        else
+                          {
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              const SnackBar(
+                                content: Text('Error al agregar paciente'),
+                              ),
+                            )
+                          }
+                      },
+                    );
                   },
                   child: const Text('Agregar'),
                 ),
