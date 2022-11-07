@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:project_frontend_2/models/models.dart';
+import 'package:project_frontend_2/routes/reserva_routes.dart';
 import 'package:project_frontend_2/screens/reserva_screen.dart';
 
 import '../screens/screens.dart';
@@ -38,6 +39,10 @@ class AppRoutes {
 
     //Agregamos todas las rutas para la pantalla de pacientes
     for (final option in PacientesRoutes.rutas) {
+      appRoutes.addAll({option.route: (BuildContext context) => option.screen});
+    }
+
+    for (final option in ReservasRoutes.rutas) {
       appRoutes.addAll({option.route: (BuildContext context) => option.screen});
     }
 
