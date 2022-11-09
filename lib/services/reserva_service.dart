@@ -31,7 +31,6 @@ class ReservaService {
           fechaDesdeCadena: item["fechaDesdeCadena"],
           fechaHastaCadena: item["fechaHastaCadena"],
         ));
-        print(item["fechaDesdeCadena"]);
       }
       return listaFicha;
     } else {
@@ -44,7 +43,7 @@ class ReservaService {
     String? fechaEdit = formValues['fechaCadena']!.split(' ')[0];
     fechaEdit = fechaEdit.replaceAll('-', '');
     int? idEmpleado = int.parse(formValues['idEmpleado']!);
-    int? idCliente = int.parse(formValues['idEmpleado']!);
+    int? idCliente = int.parse(formValues['idCliente']!);
     var fechaCadena = fechaEdit;
     var horaInicioCadena = formValues['horaInicioCadena'];
     var horaFinCadena = formValues['horaFinCadena'];
