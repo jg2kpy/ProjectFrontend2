@@ -5,6 +5,7 @@ import 'package:project_frontend_2/screens/reserva_screen.dart';
 
 import '../screens/screens.dart';
 import 'pacientes_routes.dart';
+import 'ficha_routes.dart';
 
 class AppRoutes {
   static const initialRoute = 'login';
@@ -43,6 +44,10 @@ class AppRoutes {
     }
 
     for (final option in ReservasRoutes.rutas) {
+      appRoutes.addAll({option.route: (BuildContext context) => option.screen});
+    }
+
+    for (final option in FichaRoutes.rutas) {
       appRoutes.addAll({option.route: (BuildContext context) => option.screen});
     }
 
