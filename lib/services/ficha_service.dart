@@ -52,9 +52,15 @@ class FichaService {
       'motivoConsulta': formValues['motivoConsulta'],
       'diagnostico': formValues['diagnostico'],
       'observacion': formValues['observacion'],
-      'idEmpleado': idEmpleado,
-      'idCliente': idCliente,
-      'idTipoProducto': idTipoProducto,
+      'idEmpleado': {
+        'idPersona': idEmpleado
+      },
+      'idCliente': {
+        'idPersona': idCliente,
+      },
+      'idTipoProducto': {
+        'idTipoProducto': idTipoProducto,
+      }
     };
 
     final response = await http.post(
@@ -72,6 +78,7 @@ class FichaService {
       return 'OK';
     } else {
       print("------------------------------ a ${response.body}");
+      print(response.statusCode);
       throw Exception('Error');
     }
   }
