@@ -108,7 +108,7 @@ class _FichaScreenState extends State<FichaScreen> {
                       keyboardType: TextInputType.number,
                       decoration: const InputDecoration(
                         hintText: 'Categoria',
-                        prefixIcon: Icon(Icons.category),
+                        prefixIcon: Icon(Icons.paste_rounded),
                       ),
                       onChanged: ((value) =>
                           setState(() => {_searchCategoria = value})),
@@ -118,7 +118,7 @@ class _FichaScreenState extends State<FichaScreen> {
                       keyboardType: TextInputType.number,
                       decoration: const InputDecoration(
                         hintText: 'Tipo de producto',
-                        prefixIcon: Icon(Icons.type_specimen),
+                        prefixIcon: Icon(Icons.document_scanner),
                       ),
                       onChanged: ((value) =>
                           setState(() => {_searchTipo = value})),
@@ -218,6 +218,7 @@ class _FichaScreenState extends State<FichaScreen> {
                                 snapshot.data![index].apellidoCliente,
                             idTipoProducto:
                                 snapshot.data![index].idTipoProducto,
+                            idCategoria: snapshot.data![index].idCategoria,
                             fechaHoraCadena:
                                 snapshot.data![index].fechaHoraCadena,
                             fechaHoraCadenaFormateada:
