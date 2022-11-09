@@ -247,7 +247,7 @@ class _FichaScreenState extends State<FichaScreen> {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          Navigator.pushNamed(context, 'AgregarPaciente');
+          Navigator.pushNamed(context, 'AgregarFicha');
         },
         backgroundColor: AppTheme.primary,
         child: const Icon(Icons.add),

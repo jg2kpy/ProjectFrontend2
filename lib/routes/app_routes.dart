@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:project_frontend_2/models/models.dart';
+import 'package:project_frontend_2/routes/reserva_routes.dart';
+import 'package:project_frontend_2/screens/reserva_screen.dart';
 
 import '../screens/screens.dart';
 import 'pacientes_routes.dart';
+import 'ficha_routes.dart';
 
 class AppRoutes {
   static const initialRoute = 'login';
@@ -19,7 +22,7 @@ class AppRoutes {
       name: 'Reserva de turno',
       icon: Icons.calendar_today_sharp,
       route: 'reserva',
-      screen: PacienteScreen(),
+      screen: ReservaScreen(),
     ),
     const MenuOption(
       name: 'Ficha clinica',
@@ -37,6 +40,14 @@ class AppRoutes {
 
     //Agregamos todas las rutas para la pantalla de pacientes
     for (final option in PacientesRoutes.rutas) {
+      appRoutes.addAll({option.route: (BuildContext context) => option.screen});
+    }
+
+    for (final option in ReservasRoutes.rutas) {
+      appRoutes.addAll({option.route: (BuildContext context) => option.screen});
+    }
+
+    for (final option in FichaRoutes.rutas) {
       appRoutes.addAll({option.route: (BuildContext context) => option.screen});
     }
 
