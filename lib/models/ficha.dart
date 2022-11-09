@@ -12,6 +12,7 @@ class Ficha {
   final String? nombreCliente;
   final String? apellidoCliente;
   final int? idTipoProducto;
+  final int? idCategoria;
   final String? fechaHoraCadena;
   final String? fechaHoraCadenaFormateada;
   final String? fechaDesdeCadena;
@@ -36,7 +37,8 @@ class Ficha {
       this.idCliente,
       this.nombreCliente,
       this.apellidoCliente,
-      this.idTipoProducto
+      this.idTipoProducto,
+      this.idCategoria
     }
   );
 }

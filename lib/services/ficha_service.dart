@@ -28,6 +28,7 @@ class FichaService {
           nombreCliente: item["idCliente"]["nombre"],
           apellidoCliente: item["idCliente"]["apellido"],
           idTipoProducto: item["idTipoProducto"]["idTipoProducto"],
+          idCategoria: item["idTipoProducto"]["idCategoria"]["idCategoria"],
           fechaHoraCadena: item["fechaHoraCadena"],
           fechaHoraCadenaFormateada: item["fechaHoraCadenaFormateada"],
           fechaDesdeCadena: item["fechaDesdeCadena"],

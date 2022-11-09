@@ -85,13 +85,8 @@ class CustomFichaCard extends StatelessWidget {
           actions: [
             TextButton(
               onPressed: () => Navigator.pop(context),
-              child: const Text('Aceptar'),
+              child: const Text('Ok'),
             ),
-            TextButton(
-              onPressed: () => Navigator.pop(context),
-              child:
-                  const Text('Cancelar', style: TextStyle(color: Colors.red)),
-            )
           ],
         );
       },
