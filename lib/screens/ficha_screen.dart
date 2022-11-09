@@ -18,12 +18,12 @@ class FichaScreen extends StatefulWidget {
 class _FichaScreenState extends State<FichaScreen> {
   late Future<List<Ficha>> _listadoFicha;
 
-  String _searchFisio = '';
-  String _searchPaciente = '';
+  String _searchFisio = "";
+  String _searchPaciente = "";
   DateTime? _searchFechaDesde;
   DateTime? _searchFechaHasta;
-  String _searchCategoria = '';
-  String _searchTipo = '';
+  String _searchCategoria = "";
+  String _searchTipo = "";
 
   @override
   void initState() {
@@ -54,7 +54,8 @@ class _FichaScreenState extends State<FichaScreen> {
                         hintText: 'Nombre o Apellido de Fisioterapeuta',
                         prefixIcon: Icon(Icons.person),
                       ),
-                      onChanged: ((value) => {_searchFisio = value}),
+                      onChanged: ((value) =>
+                          setState(() => {_searchFisio = value})),
                     ),
                     const SizedBox(height: 10),
                     TextField(
@@ -62,7 +63,8 @@ class _FichaScreenState extends State<FichaScreen> {
                         hintText: 'Nombre o Apellido de Paciente',
                         prefixIcon: Icon(Icons.person),
                       ),
-                      onChanged: ((value) => {_searchPaciente = value}),
+                      onChanged: ((value) =>
+                          setState(() => {_searchPaciente = value})),
                     ),
                     const SizedBox(height: 10),
                     Row(
@@ -78,13 +80,14 @@ class _FichaScreenState extends State<FichaScreen> {
                             mode: DateTimeFieldPickerMode.date,
                             autovalidateMode: AutovalidateMode.always,
                             onDateSelected: (DateTime value) {
-                              setState((() => {_searchFechaDesde = value}));
+                              setState(() => {_searchFechaDesde = value});
                             },
                           ),
                         ),
                         const SizedBox(width: 10),
                         Expanded(
                           child: DateTimeFormField(
+                            initialValue: _searchFechaHasta,
                             decoration: const InputDecoration(
                               border: OutlineInputBorder(),
                               hintText: 'Fecha hasta',
@@ -94,7 +97,7 @@ class _FichaScreenState extends State<FichaScreen> {
                             mode: DateTimeFieldPickerMode.date,
                             autovalidateMode: AutovalidateMode.always,
                             onDateSelected: (DateTime value) {
-                              setState((() => {_searchFechaHasta = value}));
+                              setState(() => {_searchFechaHasta = value});
                             },
                           ),
                         ),
@@ -107,7 +110,8 @@ class _FichaScreenState extends State<FichaScreen> {
                         hintText: 'Categoria',
                         prefixIcon: Icon(Icons.category),
                       ),
-                      onChanged: ((value) => {_searchCategoria = value}),
+                      onChanged: ((value) =>
+                          setState(() => {_searchCategoria = value})),
                     ),
                     const SizedBox(height: 10),
                     TextField(
@@ -116,35 +120,17 @@ class _FichaScreenState extends State<FichaScreen> {
                         hintText: 'Tipo de producto',
                         prefixIcon: Icon(Icons.type_specimen),
                       ),
-                      onChanged: ((value) => {_searchTipo = value}),
+                      onChanged: ((value) =>
+                          setState(() => {_searchTipo = value})),
                     ),
                     const SizedBox(height: 10),
-                    Row(
-                      children: [
-                        TextButton(
-                          onPressed: () => setState(() {
-                            _searchFisio = _searchFisio;
-                            _searchPaciente = _searchPaciente;
-                            _searchFechaDesde = _searchFechaDesde;
-                            _searchFechaHasta = _searchFechaHasta;
-                            _searchCategoria = _searchCategoria;
-                            _searchTipo = _searchTipo;
-                          }),
-                          child: const Text('Filtrar'),
-                        ),
-                        TextButton(
-                          onPressed: () => setState(() {
-                            _searchFisio = "";
-                            _searchPaciente = "";
-                            _searchFechaDesde = null;
-                            _searchFechaHasta = null;
-                            _searchCategoria = "";
-                            _searchTipo = "";
-                          }),
-                          child: const Text('Limpiar'),
-                        ),
-                      ],
-                    )
+                    TextButton(
+                      onPressed: () => setState(() {
+                        Navigator.pop(context);
+                        Navigator.pushNamed(context, 'ficha');
+                      }),
+                      child: const Text('Limpiar'),
+                    ),
                   ],
                 ),
               )
@@ -162,33 +148,56 @@ class _FichaScreenState extends State<FichaScreen> {
                       shrinkWrap: true,
                       itemCount: snapshot.data!.length,
                       itemBuilder: (context, index) {
+                        bool flagFisio = _searchFisio == "" ||
+                            ((snapshot.data![index].nombreEmpleado != null &&
+                                    snapshot.data![index].nombreEmpleado!
+                                        .toLowerCase()
+                                        .contains(
+                                            _searchFisio.toLowerCase())) ||
+                                (snapshot.data![index].apellidoEmpleado !=
+                                        null &&
+                                    snapshot.data![index].apellidoEmpleado!
+                                        .toLowerCase()
+                                        .contains(_searchFisio.toLowerCase())));
 
-                        bool flagFisio = _searchFisio == "" || (
-                          (snapshot.data![index].nombreEmpleado != null && snapshot.data![index].nombreEmpleado!.toLowerCase().contains(_searchFisio.toLowerCase())) ||
-                          (snapshot.data![index].apellidoEmpleado != null && snapshot.data![index].apellidoEmpleado!.toLowerCase().contains(_searchFisio.toLowerCase()))
-                        );
+                        bool flagPaciente = _searchPaciente == "" ||
+                            ((snapshot.data![index].nombreCliente != null &&
+                                    snapshot.data![index].nombreCliente!
+                                        .toLowerCase()
+                                        .contains(
+                                            _searchPaciente.toLowerCase())) ||
+                                (snapshot.data![index].apellidoCliente !=
+                                        null &&
+                                    snapshot.data![index].apellidoCliente!
+                                        .toLowerCase()
+                                        .contains(
+                                            _searchPaciente.toLowerCase())));
 
-                        bool flagPaciente = _searchPaciente == "" || (
-                          (snapshot.data![index].nombreCliente != null && snapshot.data![index].nombreCliente!.toLowerCase().contains(_searchPaciente.toLowerCase())) ||
-                          (snapshot.data![index].apellidoCliente != null && snapshot.data![index].apellidoCliente!.toLowerCase().contains(_searchPaciente.toLowerCase()))
-                        );
-
-                        DateTime fechaHora = DateTime.parse(snapshot.data![index].fechaHora!);
+                        DateTime fechaHora =
+                            DateTime.parse(snapshot.data![index].fechaHora!);
                         bool flagDesde = _searchFechaDesde == null ||
-                            (_searchFechaDesde != null && fechaHora.isAfter(_searchFechaDesde!));
+                            (_searchFechaDesde != null &&
+                                fechaHora.isAfter(_searchFechaDesde!));
                         bool flagHasta = _searchFechaHasta == null ||
-                            (_searchFechaHasta != null && fechaHora.isBefore(_searchFechaHasta!));
+                            (_searchFechaHasta != null &&
+                                fechaHora.isBefore(_searchFechaHasta!));
 
+                        bool flagTipo = _searchTipo == "" ||
+                            ((snapshot.data![index].idTipoProducto != null &&
+                                snapshot.data![index].idTipoProducto ==
+                                    int.parse(_searchTipo)));
 
-                        bool flagTipo = _searchTipo == "" || (
-                          (snapshot.data![index].idTipoProducto != null && snapshot.data![index].idTipoProducto == int.parse(_searchTipo))
-                        );
+                        bool flagCategoria = _searchCategoria == "" ||
+                            ((snapshot.data![index].idCategoria != null &&
+                                snapshot.data![index].idCategoria ==
+                                    int.parse(_searchCategoria)));
 
-                        bool flagCategoria = _searchCategoria == "" || (
-                          (snapshot.data![index].idCategoria != null && snapshot.data![index].idCategoria == int.parse(_searchCategoria))
-                        );
-
-                        if (flagFisio && flagPaciente && flagDesde && flagHasta && flagCategoria && flagTipo) {
+                        if (flagFisio &&
+                            flagPaciente &&
+                            flagDesde &&
+                            flagHasta &&
+                            flagCategoria &&
+                            flagTipo) {
                           return CustomFichaCard(
                             idFichaClinica:
                                 snapshot.data![index].idFichaClinica,
@@ -224,8 +233,6 @@ class _FichaScreenState extends State<FichaScreen> {
                           return Container();
                         }
                       },
-
-
                     );
                   } else if (snapshot.hasError) {
                     return const Text('Error al obtener las fichas clinicas');
