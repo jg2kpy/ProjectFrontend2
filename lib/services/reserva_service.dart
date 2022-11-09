@@ -48,8 +48,12 @@ class ReservaService {
     var horaInicioCadena = formValues['horaInicioCadena'];
     var horaFinCadena = formValues['horaFinCadena'];
     var formFinal = {
-      'idEmpleado': idEmpleado,
-      'idCliente': idCliente,
+      'idEmpleado': {
+        'idPersona': idEmpleado
+      },
+      'idCliente': {
+        'idPersona': idEmpleado
+      },
       'fechaCadena': fechaCadena,
       'horaInicioCadena': horaInicioCadena,
       'horaFinCadena': horaFinCadena,
