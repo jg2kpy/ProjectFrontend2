@@ -34,7 +34,6 @@ class FichaService {
           fechaHastaCadena: item["fechaHastaCadena"],
           todosLosCampos: item["todosLosCampos"],
         ));
-        print(item["fechaDesdeCadena"]);
       }
       return listaFicha;
     } else {
