@@ -72,7 +72,6 @@ class ReservaService {
         response.statusCode == 200) {
       return 'OK';
     } else {
-      print("------------------------------ a ${response.body}");
       throw Exception('Error');
     }
   }

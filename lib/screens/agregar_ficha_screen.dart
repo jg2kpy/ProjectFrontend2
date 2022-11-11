@@ -89,7 +89,7 @@ class AgregarFichaScreen extends StatelessWidget {
                       (value) => {
                         if (value == 'OK')
                           {
-                            Navigator.pushNamed(context, 'fichas'),
+                            Navigator.pushNamed(context, 'ficha'),
                           }
                         else
                           {

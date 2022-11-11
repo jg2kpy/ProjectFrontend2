@@ -28,6 +28,7 @@ class FichaService {
           nombreCliente: item["idCliente"]["nombre"],
           apellidoCliente: item["idCliente"]["apellido"],
           idTipoProducto: item["idTipoProducto"]["idTipoProducto"],
+          idCategoria: item["idTipoProducto"]["idCategoria"]["idCategoria"],
           fechaHoraCadena: item["fechaHoraCadena"],
           fechaHoraCadenaFormateada: item["fechaHoraCadenaFormateada"],
           fechaDesdeCadena: item["fechaDesdeCadena"],
@@ -51,9 +52,15 @@ class FichaService {
       'motivoConsulta': formValues['motivoConsulta'],
       'diagnostico': formValues['diagnostico'],
       'observacion': formValues['observacion'],
-      'idEmpleado': idEmpleado,
-      'idCliente': idCliente,
-      'idTipoProducto': idTipoProducto,
+      'idEmpleado': {
+        'idPersona': idEmpleado
+      },
+      'idCliente': {
+        'idPersona': idCliente,
+      },
+      'idTipoProducto': {
+        'idTipoProducto': idTipoProducto,
+      }
     };
 
     final response = await http.post(
@@ -70,7 +77,33 @@ class FichaService {
         response.statusCode == 200) {
       return 'OK';
     } else {
-      print("------------------------------ a ${response.body}");
+      throw Exception('Error');
+    }
+  }
+
+  static Future<String> editarFicha(Map<String, String> formValues) async {
+    Uri uri = Uri.https(url, '/stock-nutrinatalia/fichaClinica');
+
+    int? idFichaClinica = int.parse(formValues['idFichaClinica']!);
+    var formFinal = {
+      'idFichaClinica': idFichaClinica,
+      'observacion': formValues['observacion'],
+    };
+
+    final response = await http.put(
+      uri,
+      headers: <String, String>{
+        'usuario': 'usuario1',
+        'Content-Type': 'application/json; charset=UTF-8',
+      },
+      body: jsonEncode(formFinal),
+    );
+
+    if (response.statusCode == 301 ||
+        response.statusCode == 201 ||
+        response.statusCode == 200) {
+      return 'OK';
+    } else {
       throw Exception('Error');
     }
   }

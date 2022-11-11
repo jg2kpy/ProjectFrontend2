@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:project_frontend_2/models/paciente.dart';
 import 'package:project_frontend_2/services/services.dart';
 import 'package:project_frontend_2/theme/app_theme.dart';
-import 'package:project_frontend_2/widgets/custom_input_field.dart';
 import 'package:project_frontend_2/widgets/custom_patien_card.dart';
 
 class PacienteScreen extends StatefulWidget {

@@ -12,14 +12,18 @@ class FichaScreen extends StatefulWidget {
   const FichaScreen({super.key});
 
   @override
-  State<FichaScreen> createState() => _FichaScreenState();  
+  State<FichaScreen> createState() => _FichaScreenState();
 }
 
 class _FichaScreenState extends State<FichaScreen> {
-  String _searchText = '';
   late Future<List<Ficha>> _listadoFicha;
+
+  String _searchFisio = "";
+  String _searchPaciente = "";
   DateTime? _searchFechaDesde;
   DateTime? _searchFechaHasta;
+  String _searchCategoria = "";
+  String _searchTipo = "";
 
   @override
   void initState() {
@@ -27,7 +31,7 @@ class _FichaScreenState extends State<FichaScreen> {
     //Aqui se llama al servicio para obtener los pacientes
     _listadoFicha = FichaService.getFichas();
   }
-  
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -36,143 +40,213 @@ class _FichaScreenState extends State<FichaScreen> {
       ),
       body: Column(
         children: [
-          Container(
-            padding: const EdgeInsets.all(10),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              //Agregamos un inputfield que actualiza un valor a _searchText
-              children: [
-                TextField(
-                  decoration: const InputDecoration(
-                    hintText: 'Buscar ficha',
-                    prefixIcon: Icon(Icons.search),
-                  ),
-                  onChanged: ((value) => {
-                        setState(
-                          (() => {_searchText = value}),
-                        )
+          ExpansionTile(
+            title: const Text('Filtros'),
+            children: [
+              Container(
+                padding: const EdgeInsets.all(10),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  //Agregamos un inputfield que actualiza un valor a _searchText
+                  children: [
+                    TextField(
+                      decoration: const InputDecoration(
+                        labelText: 'Nombre o Apellido de Fisioterapeuta',
+                        prefixIcon: Icon(Icons.person),
+                      ),
+                      onChanged: ((value) =>
+                          setState(() => {_searchFisio = value})),
+                    ),
+                    const SizedBox(height: 10),
+                    TextField(
+                      decoration: const InputDecoration(
+                        labelText: 'Nombre o Apellido de Paciente',
+                        prefixIcon: Icon(Icons.person),
+                      ),
+                      onChanged: ((value) =>
+                          setState(() => {_searchPaciente = value})),
+                    ),
+                    const SizedBox(height: 10),
+                    Row(
+                      children: [
+                        Expanded(
+                          child: DateTimeFormField(
+                            decoration: const InputDecoration(
+                              border: OutlineInputBorder(),
+                              hintText: 'Fecha desde',
+                              labelText: 'Fecha desde',
+                              prefixIcon: Icon(Icons.date_range),
+                            ),
+                            mode: DateTimeFieldPickerMode.date,
+                            autovalidateMode: AutovalidateMode.always,
+                            onDateSelected: (DateTime value) {
+                              setState(() => {_searchFechaDesde = value});
+                            },
+                          ),
+                        ),
+                        const SizedBox(width: 10),
+                        Expanded(
+                          child: DateTimeFormField(
+                            initialValue: _searchFechaHasta,
+                            decoration: const InputDecoration(
+                              border: OutlineInputBorder(),
+                              hintText: 'Fecha hasta',
+                              labelText: 'Fecha hasta',
+                              prefixIcon: Icon(Icons.date_range),
+                            ),
+                            mode: DateTimeFieldPickerMode.date,
+                            autovalidateMode: AutovalidateMode.always,
+                            onDateSelected: (DateTime value) {
+                              setState(() => {_searchFechaHasta = value});
+                            },
+                          ),
+                        ),
+                      ],
+                    ),
+                    const SizedBox(height: 10),
+                    TextField(
+                      keyboardType: TextInputType.number,
+                      decoration: const InputDecoration(
+                        labelText: 'Categoria',
+                        prefixIcon: Icon(Icons.paste_rounded),
+                      ),
+                      onChanged: ((value) =>
+                          setState(() => {_searchCategoria = value})),
+                    ),
+                    const SizedBox(height: 10),
+                    TextField(
+                      keyboardType: TextInputType.number,
+                      decoration: const InputDecoration(
+                        labelText: 'Tipo de producto',
+                        prefixIcon: Icon(Icons.document_scanner),
+                      ),
+                      onChanged: ((value) =>
+                          setState(() => {_searchTipo = value})),
+                    ),
+                    const SizedBox(height: 10),
+                    TextButton(
+                      onPressed: () => setState(() {
+                        Navigator.pop(context);
+                        Navigator.pushNamed(context, 'ficha');
                       }),
+                      child: const Text('Limpiar'),
+                    ),
+                  ],
                 ),
-                const SizedBox(height: 10),
-                DateTimeFormField(
-                  decoration: const InputDecoration(
-                    border: OutlineInputBorder(),
-                    hintText: 'Fecha desde',
-                    labelText: 'Fecha desde',
-                    icon: Icon(Icons.date_range),
-                  ),
-                  mode: DateTimeFieldPickerMode.date,
-                  autovalidateMode: AutovalidateMode.always,
-                  onDateSelected: (DateTime value) {
-                    setState(
-                      (()  => {_searchFechaDesde = value})
-                    );
-                  },
-                ),
-                const SizedBox(height: 10),
-                DateTimeFormField(
-                  decoration: const InputDecoration(
-                    border: OutlineInputBorder(),
-                    hintText: 'Fecha hasta',
-                    labelText: 'Fecha hasta',
-                    icon: Icon(Icons.date_range),
-                  ),
-                  mode: DateTimeFieldPickerMode.date,
-                  autovalidateMode: AutovalidateMode.always,
-                  onDateSelected: (DateTime value) {
-                    setState(
-                      (()  => {_searchFechaHasta = value})
-                    );
-                  },
-                ),
-              ],
-            ),
+              )
+            ],
           ),
           Expanded(
             flex: 2,
             child: Container(
               padding: const EdgeInsets.all(10),
               child: FutureBuilder(
-        future: _listadoFicha,
-        builder: ((context, snapshot) {
-          if (snapshot.hasData) {
-            return ListView.builder(
-              shrinkWrap: true,
-              itemCount: snapshot.data!.length,
-              itemBuilder: (context, index) {
-                if (_searchText == '' &&
-                    _searchFechaDesde == null &&
-                    _searchFechaHasta == null) {
-                  return CustomFichaCard(
-                    idFichaClinica: snapshot.data![index].idFichaClinica,
-                    fechaHora: snapshot.data![index].fechaHora,
-                    motivoConsulta: snapshot.data![index].motivoConsulta,
-                    diagnostico: snapshot.data![index].diagnostico,
-                    observacion: snapshot.data![index].observacion,
-                    idLocal: snapshot.data![index].idLocal,
-                    idEmpleado: snapshot.data![index].idEmpleado,
-                    nombreEmpleado: snapshot.data![index].nombreEmpleado,
-                    apellidoEmpleado: snapshot.data![index].apellidoEmpleado,
-                    idCliente: snapshot.data![index].idCliente,
-                    nombreCliente: snapshot.data![index].nombreCliente,
-                    apellidoCliente: snapshot.data![index].apellidoCliente,
-                    idTipoProducto: snapshot.data![index].idTipoProducto,
-                    fechaHoraCadena: snapshot.data![index].fechaHoraCadena,
-                    fechaHoraCadenaFormateada: snapshot.data![index].fechaHoraCadenaFormateada,
-                    fechaDesdeCadena: snapshot.data![index].fechaDesdeCadena,
-                    fechaHastaCadena: snapshot.data![index].fechaHastaCadena,
-                    todosLosCampos: snapshot.data![index].todosLosCampos,
-                  );
-                } else {
-                  DateTime fechaHora = DateTime.parse(snapshot.data![index].fechaHora!);
-                  bool flagTexto = _searchText == "" || (
-                                  (snapshot.data![index].nombreEmpleado!.toLowerCase().contains(_searchText.toLowerCase())) ||
-                                  (snapshot.data![index].apellidoEmpleado != null && snapshot.data![index].apellidoEmpleado!.toLowerCase().contains(_searchText.toLowerCase())) ||
-                                  (snapshot.data![index].nombreCliente!.toLowerCase().contains(_searchText.toLowerCase())) ||
-                                  (snapshot.data![index].apellidoCliente != null && snapshot.data![index].apellidoCliente!.toLowerCase().contains(_searchText.toLowerCase())));
+                future: _listadoFicha,
+                builder: ((context, snapshot) {
+                  if (snapshot.hasData) {
+                    return ListView.builder(
+                      shrinkWrap: true,
+                      itemCount: snapshot.data!.length,
+                      itemBuilder: (context, index) {
+                        bool flagFisio = _searchFisio == "" ||
+                            ((snapshot.data![index].nombreEmpleado != null &&
+                                    snapshot.data![index].nombreEmpleado!
+                                        .toLowerCase()
+                                        .contains(
+                                            _searchFisio.toLowerCase())) ||
+                                (snapshot.data![index].apellidoEmpleado !=
+                                        null &&
+                                    snapshot.data![index].apellidoEmpleado!
+                                        .toLowerCase()
+                                        .contains(_searchFisio.toLowerCase())));
 
-                  bool flagDesde = _searchFechaDesde == null || (_searchFechaDesde!= null && fechaHora.isAfter(_searchFechaDesde!));
-                  bool flagHasta = _searchFechaHasta == null || (_searchFechaHasta!= null && fechaHora.isBefore(_searchFechaHasta!));
-                  if (flagTexto && flagDesde && flagHasta)
-                  {
-                    return CustomFichaCard(
-                      idFichaClinica: snapshot.data![index].idFichaClinica,
-                      fechaHora: snapshot.data![index].fechaHora,
-                      motivoConsulta: snapshot.data![index].motivoConsulta,
-                      diagnostico: snapshot.data![index].diagnostico,
-                      observacion: snapshot.data![index].observacion,
-                      idLocal: snapshot.data![index].idLocal,
-                      idEmpleado: snapshot.data![index].idEmpleado,
-                      nombreEmpleado: snapshot.data![index].nombreEmpleado,
-                      apellidoEmpleado: snapshot.data![index].apellidoEmpleado,
-                      idCliente: snapshot.data![index].idCliente,
-                      nombreCliente: snapshot.data![index].nombreCliente,
-                      apellidoCliente: snapshot.data![index].apellidoCliente,
-                      idTipoProducto: snapshot.data![index].idTipoProducto,
-                      fechaHoraCadena: snapshot.data![index].fechaHoraCadena,
-                      fechaHoraCadenaFormateada: snapshot.data![index].fechaHoraCadenaFormateada,
-                      fechaDesdeCadena: snapshot.data![index].fechaDesdeCadena,
-                      fechaHastaCadena: snapshot.data![index].fechaHastaCadena,
-                      todosLosCampos: snapshot.data![index].todosLosCampos,
+                        bool flagPaciente = _searchPaciente == "" ||
+                            ((snapshot.data![index].nombreCliente != null &&
+                                    snapshot.data![index].nombreCliente!
+                                        .toLowerCase()
+                                        .contains(
+                                            _searchPaciente.toLowerCase())) ||
+                                (snapshot.data![index].apellidoCliente !=
+                                        null &&
+                                    snapshot.data![index].apellidoCliente!
+                                        .toLowerCase()
+                                        .contains(
+                                            _searchPaciente.toLowerCase())));
+
+                        DateTime fechaHora =
+                            DateTime.parse(snapshot.data![index].fechaHora!);
+                        bool flagDesde = _searchFechaDesde == null ||
+                            (_searchFechaDesde != null &&
+                                fechaHora.isAfter(_searchFechaDesde!));
+                        bool flagHasta = _searchFechaHasta == null ||
+                            (_searchFechaHasta != null &&
+                                fechaHora.isBefore(_searchFechaHasta!));
+
+                        bool flagTipo = _searchTipo == "" ||
+                            ((snapshot.data![index].idTipoProducto != null &&
+                                snapshot.data![index].idTipoProducto ==
+                                    int.parse(_searchTipo)));
+
+                        bool flagCategoria = _searchCategoria == "" ||
+                            ((snapshot.data![index].idCategoria != null &&
+                                snapshot.data![index].idCategoria ==
+                                    int.parse(_searchCategoria)));
+
+                        if (flagFisio &&
+                            flagPaciente &&
+                            flagDesde &&
+                            flagHasta &&
+                            flagCategoria &&
+                            flagTipo) {
+                          return CustomFichaCard(
+                            idFichaClinica:
+                                snapshot.data![index].idFichaClinica,
+                            fechaHora: snapshot.data![index].fechaHora,
+                            motivoConsulta:
+                                snapshot.data![index].motivoConsulta,
+                            diagnostico: snapshot.data![index].diagnostico,
+                            observacion: snapshot.data![index].observacion,
+                            idLocal: snapshot.data![index].idLocal,
+                            idEmpleado: snapshot.data![index].idEmpleado,
+                            nombreEmpleado:
+                                snapshot.data![index].nombreEmpleado,
+                            apellidoEmpleado:
+                                snapshot.data![index].apellidoEmpleado,
+                            idCliente: snapshot.data![index].idCliente,
+                            nombreCliente: snapshot.data![index].nombreCliente,
+                            apellidoCliente:
+                                snapshot.data![index].apellidoCliente,
+                            idTipoProducto:
+                                snapshot.data![index].idTipoProducto,
+                            idCategoria: snapshot.data![index].idCategoria,
+                            fechaHoraCadena:
+                                snapshot.data![index].fechaHoraCadena,
+                            fechaHoraCadenaFormateada:
+                                snapshot.data![index].fechaHoraCadenaFormateada,
+                            fechaDesdeCadena:
+                                snapshot.data![index].fechaDesdeCadena,
+                            fechaHastaCadena:
+                                snapshot.data![index].fechaHastaCadena,
+                            todosLosCampos:
+                                snapshot.data![index].todosLosCampos,
+                          );
+                        } else {
+                          return Container();
+                        }
+                      },
                     );
+                  } else if (snapshot.hasError) {
+                    return const Text('Error al obtener las fichas clinicas');
                   } else {
-                    return Container();
+                    return const Center(child: CircularProgressIndicator());
                   }
-                }
-              },
-            );
-          } else if (snapshot.hasError) {
-            return const Text('Error al obtener los pacientes');
-          } else {
-            return const Center(child: CircularProgressIndicator());
-          }
-        }),
-      ),
+                }),
+              ),
             ),
           ),
         ],
       ),
-     floatingActionButton: FloatingActionButton(
+      floatingActionButton: FloatingActionButton(
         onPressed: () {
           Navigator.pushNamed(context, 'AgregarFicha');
         },

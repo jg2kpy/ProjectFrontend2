@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:project_frontend_2/models/models.dart';
 import 'package:project_frontend_2/routes/reserva_routes.dart';
-import 'package:project_frontend_2/screens/reserva_screen.dart';
 
 import '../screens/screens.dart';
 import 'pacientes_routes.dart';
