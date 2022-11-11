@@ -108,6 +108,13 @@ class CustomReservaWidget extends StatelessWidget {
                     style: TextStyle(color: AppTheme.primary),
                   ),
                 ),
+                TextButton(
+                  onPressed: () {},
+                  child: const Text(
+                    'Cancelar',
+                    style: TextStyle(color: Color.fromARGB(255, 196, 19, 19)),
+                  ),
+                ),
               ],
             ),
           ),
