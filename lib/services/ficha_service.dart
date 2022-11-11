@@ -82,4 +82,33 @@ class FichaService {
       throw Exception('Error');
     }
   }
+
+  static Future<String> editarFicha(Map<String, String> formValues) async {
+    Uri uri = Uri.https(url, '/stock-nutrinatalia/fichaClinica');
+
+    int? idFichaClinica = int.parse(formValues['idFichaClinica']!);
+    var formFinal = {
+      'idFichaClinica': idFichaClinica,
+      'observacion': formValues['observacion'],
+    };
+
+    final response = await http.put(
+      uri,
+      headers: <String, String>{
+        'usuario': 'usuario1',
+        'Content-Type': 'application/json; charset=UTF-8',
+      },
+      body: jsonEncode(formFinal),
+    );
+
+    if (response.statusCode == 301 ||
+        response.statusCode == 201 ||
+        response.statusCode == 200) {
+      return 'OK';
+    } else {
+      print("------------------------------ a ${response.body}");
+      print(response.statusCode);
+      throw Exception('Error');
+    }
+  }
 }

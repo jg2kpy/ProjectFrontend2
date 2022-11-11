@@ -1,6 +1,7 @@
 // ignore_for_file: unnecessary_brace_in_string_interps
 
 import 'package:flutter/material.dart';
+import 'package:project_frontend_2/screens/editar_ficha_screen.dart';
 
 import '../theme/app_theme.dart';
 
@@ -109,7 +110,11 @@ class CustomFichaCard extends StatelessWidget {
                   ),
                 ),
                 TextButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.push(context, MaterialPageRoute(
+                      builder: (context) => EditarFichaScreen(idFichaClinica: idFichaClinica,),)
+                    );
+                  },
                   child: const Text(
                     'Editar',
                     style: TextStyle(color: AppTheme.primary),

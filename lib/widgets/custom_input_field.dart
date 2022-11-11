@@ -7,6 +7,7 @@ class CustomInputField extends StatelessWidget {
   final IconData? icon;
   final TextInputType? keyboardType;
   final bool? obscureText;
+  final bool? enabled;
 
   final String formProperty;
   final Map<String, String> formValues;
@@ -19,6 +20,7 @@ class CustomInputField extends StatelessWidget {
     this.icon,
     this.keyboardType,
     this.obscureText,
+    this.enabled,
     required this.formProperty,
     required this.formValues,
   }) : super(key: key);
@@ -28,6 +30,7 @@ class CustomInputField extends StatelessWidget {
     return TextFormField(
       autofocus: false,
       initialValue: '',
+      enabled: enabled,
       textCapitalization: TextCapitalization.words,
       keyboardType: keyboardType == null ? null : TextInputType.emailAddress,
       obscureText: obscureText == null ? false : true,

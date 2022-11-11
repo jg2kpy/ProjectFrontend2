@@ -13,5 +13,11 @@ class FichaRoutes {
       route: 'AgregarFicha',
       screen: AgregarFichaScreen(),
     ),
+    const MenuOption(
+      name: 'Editar Ficha',
+      icon: Icons.person_add,
+      route: 'EditarFicha',
+      screen: EditarFichaScreen(),
+    ),
   ];
 }
