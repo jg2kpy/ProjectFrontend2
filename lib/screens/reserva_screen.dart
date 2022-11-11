@@ -1,9 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:project_frontend_2/models/reserva.dart';
-import 'package:project_frontend_2/screens/agregar_reserva_screen.dart';
-import 'package:project_frontend_2/services/services.dart';
 import 'package:project_frontend_2/theme/app_theme.dart';
-import 'package:project_frontend_2/widgets/custom_patien_card.dart';
 import 'package:project_frontend_2/widgets/custom_reserva_card.dart';
 
 import '../services/reserva_service.dart';

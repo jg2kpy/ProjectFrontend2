@@ -77,8 +77,6 @@ class FichaService {
         response.statusCode == 200) {
       return 'OK';
     } else {
-      print("------------------------------ a ${response.body}");
-      print(response.statusCode);
       throw Exception('Error');
     }
   }
@@ -106,8 +104,6 @@ class FichaService {
         response.statusCode == 200) {
       return 'OK';
     } else {
-      print("------------------------------ a ${response.body}");
-      print(response.statusCode);
       throw Exception('Error');
     }
   }
