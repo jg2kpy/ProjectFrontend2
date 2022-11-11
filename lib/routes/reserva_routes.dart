@@ -12,5 +12,11 @@ class ReservasRoutes {
       route: 'AgregarReserva',
       screen: AgregarReservaScreen(),
     ),
+    const MenuOption(
+      name: 'Actualizar Reserva',
+      icon: Icons.person_add,
+      route: 'ActualizarReserva',
+      screen: ActualizarReservaScreen(),
+    ),
   ];
 }

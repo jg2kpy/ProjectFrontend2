@@ -1,10 +1,11 @@
+// TODO Implement this library.
 import 'package:date_field/date_field.dart';
 import 'package:flutter/material.dart';
 import 'package:project_frontend_2/services/reserva_service.dart';
 import 'package:project_frontend_2/widgets/custom_input_field.dart';
 
-class AgregarReservaScreen extends StatelessWidget {
-  const AgregarReservaScreen({super.key});
+class ActualizarReservaScreen extends StatelessWidget {
+  const ActualizarReservaScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -20,7 +21,7 @@ class AgregarReservaScreen extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Agregar Reserva'),
+        title: const Text('Actualizar Reserva'),
       ),
       body: SingleChildScrollView(
         child: Padding(
@@ -99,7 +100,7 @@ class AgregarReservaScreen extends StatelessWidget {
                       },
                     );
                   },
-                  child: const Text('Agregar'),
+                  child: const Text('Actualizar'),
                 ),
               ],
             ),

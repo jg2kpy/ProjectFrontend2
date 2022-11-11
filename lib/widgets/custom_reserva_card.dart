@@ -102,14 +102,16 @@ class CustomReservaWidget extends StatelessWidget {
                   ),
                 ),
                 TextButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.pushNamed(context, 'ActualizarReserva');
+                  },
                   child: const Text(
                     'Editar',
                     style: TextStyle(color: AppTheme.primary),
                   ),
                 ),
                 TextButton(
-                  onPressed: () {},
+                  onPressed: () => displayDialogAndroid(context),
                   child: const Text(
                     'Cancelar',
                     style: TextStyle(color: Color.fromARGB(255, 196, 19, 19)),
