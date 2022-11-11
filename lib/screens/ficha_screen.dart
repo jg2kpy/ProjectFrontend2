@@ -51,7 +51,7 @@ class _FichaScreenState extends State<FichaScreen> {
                   children: [
                     TextField(
                       decoration: const InputDecoration(
-                        hintText: 'Nombre o Apellido de Fisioterapeuta',
+                        labelText: 'Nombre o Apellido de Fisioterapeuta',
                         prefixIcon: Icon(Icons.person),
                       ),
                       onChanged: ((value) =>
@@ -60,7 +60,7 @@ class _FichaScreenState extends State<FichaScreen> {
                     const SizedBox(height: 10),
                     TextField(
                       decoration: const InputDecoration(
-                        hintText: 'Nombre o Apellido de Paciente',
+                        labelText: 'Nombre o Apellido de Paciente',
                         prefixIcon: Icon(Icons.person),
                       ),
                       onChanged: ((value) =>
@@ -107,7 +107,7 @@ class _FichaScreenState extends State<FichaScreen> {
                     TextField(
                       keyboardType: TextInputType.number,
                       decoration: const InputDecoration(
-                        hintText: 'Categoria',
+                        labelText: 'Categoria',
                         prefixIcon: Icon(Icons.paste_rounded),
                       ),
                       onChanged: ((value) =>
@@ -117,7 +117,7 @@ class _FichaScreenState extends State<FichaScreen> {
                     TextField(
                       keyboardType: TextInputType.number,
                       decoration: const InputDecoration(
-                        hintText: 'Tipo de producto',
+                        labelText: 'Tipo de producto',
                         prefixIcon: Icon(Icons.document_scanner),
                       ),
                       onChanged: ((value) =>
