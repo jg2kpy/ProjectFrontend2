@@ -15,7 +15,7 @@ class AppTheme {
     // ButtonThemeData
     elevatedButtonTheme: ElevatedButtonThemeData(
       style: ElevatedButton.styleFrom(
-        primary: primary,
+        backgroundColor: primary,
         elevation: 10,
       ),
     ),

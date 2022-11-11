@@ -1,6 +1,7 @@
 // ignore_for_file: unnecessary_brace_in_string_interps
 
 import 'package:flutter/material.dart';
+import 'package:project_frontend_2/screens/editar_ficha_screen.dart';
 
 import '../theme/app_theme.dart';
 
@@ -18,6 +19,7 @@ class CustomFichaCard extends StatelessWidget {
   final String? nombreCliente;
   final String? apellidoCliente;
   final int? idTipoProducto;
+  final int? idCategoria;
   final String? fechaHoraCadena;
   final String? fechaHoraCadenaFormateada;
   final String? fechaDesdeCadena;
@@ -43,7 +45,8 @@ class CustomFichaCard extends StatelessWidget {
       this.idCliente,
       this.nombreCliente,
       this.apellidoCliente,
-      this.idTipoProducto
+      this.idTipoProducto,
+      this.idCategoria
   }) : super(key: key);
 
   //Agregamos el campo de informacion de un cliente en un modal
@@ -62,36 +65,22 @@ class CustomFichaCard extends StatelessWidget {
             children: [
               const Text('Datos de la ficha clinica'),
               const SizedBox(height: 20),
-              Text('idFichaClinica: $idFichaClinica'),
-              Text('fechaHora: $fechaHora'),
-              Text('motivoConsulta: $motivoConsulta'),
-              Text('diagnostico: $diagnostico'),
-              Text('observacion: $observacion'),
-              Text('fechaHoraCadena: $fechaHoraCadena'),
-              Text('fechaHoraCadenaFormateada: $fechaHoraCadenaFormateada'),
-              Text('fechaDesdeCadena: $fechaDesdeCadena'),
-              Text('fechaHastaCadena: $fechaHastaCadena'),
-              Text('todosLosCampos: $todosLosCampos'),
-              Text('idLocal: $idLocal'),
-              Text('idEmpleado: $idEmpleado'),
-              Text('nombreEmpleado: $nombreEmpleado'),
-              Text('apellidoEmpleado: $apellidoEmpleado'),
-              Text('idCliente: $idCliente'),
-              Text('nombreCliente: $nombreCliente'),
-              Text('apellidoCliente: $apellidoCliente'),
-              Text('idTipoProducto: $idTipoProducto'),
+              Text('ID: $idFichaClinica'),
+              Text('Fecha: $fechaHora'),
+              Text('Motivo Consulta: $motivoConsulta'),
+              Text('Diagnostico: $diagnostico'),
+              Text('Observacion: $observacion'),
+              Text('Empleado: $nombreEmpleado $apellidoEmpleado'),
+              Text('Cliente: $nombreCliente $apellidoCliente'),
+              Text('ID Categoria: $idCategoria'),
+              Text('ID Tipo Producto: $idTipoProducto'),
             ],
           ),
           actions: [
             TextButton(
               onPressed: () => Navigator.pop(context),
-              child: const Text('Aceptar'),
+              child: const Text('Ok'),
             ),
-            TextButton(
-              onPressed: () => Navigator.pop(context),
-              child:
-                  const Text('Cancelar', style: TextStyle(color: Colors.red)),
-            )
           ],
         );
       },
@@ -121,7 +110,11 @@ class CustomFichaCard extends StatelessWidget {
                   ),
                 ),
                 TextButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.push(context, MaterialPageRoute(
+                      builder: (context) => EditarFichaScreen(idFichaClinica: idFichaClinica,),)
+                    );
+                  },
                   child: const Text(
                     'Editar',
                     style: TextStyle(color: AppTheme.primary),
