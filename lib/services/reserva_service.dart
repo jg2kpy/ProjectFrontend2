@@ -21,8 +21,8 @@ class ReservaService {
           horaInicioCadena: item["horaInicioCadena"],
           horaFinCadena: item["horaFinCadena"],
           idEmpleado: item["idEmpleado"]["idPersona"],
-          nombreEmpleado: item["idCliente"]["nombre"],
-          apellidoEmpleado: item["idCliente"]["apellido"],
+          nombreEmpleado: item["idEmpleado"]["nombre"],
+          apellidoEmpleado: item["idEmpleado"]["apellido"],
           idCliente: item["idCliente"]["idPersona"],
           nombreCliente: item["idCliente"]["nombre"],
           apellidoCliente: item["idCliente"]["apellido"],
@@ -63,17 +63,14 @@ class ReservaService {
       body: jsonEncode(formFinal),
     );
 
-    if (response.statusCode == 301 ||
-        response.statusCode == 201 ||
-        response.statusCode == 200) {
+    if (response.statusCode == 301 || response.statusCode == 201 || response.statusCode == 200) {
       return 'OK';
     } else {
       throw Exception('Error');
     }
   }
 
-  static Future<String> actualizarReserva(
-      Map<String, String> formValues) async {
+  static Future<String> actualizarReserva(Map<String, String> formValues) async {
     Uri uri = Uri.https(url, '/stock-nutrinatalia/reserva');
 
     int? idReserva = int.parse(formValues['ID']!);
@@ -92,9 +89,7 @@ class ReservaService {
       body: jsonEncode(formFinal),
     );
 
-    if (response.statusCode == 301 ||
-        response.statusCode == 201 ||
-        response.statusCode == 200) {
+    if (response.statusCode == 301 || response.statusCode == 201 || response.statusCode == 200) {
       return 'OK';
     } else {
       throw Exception('Error');
@@ -112,13 +107,54 @@ class ReservaService {
       },
     );
 
-    if (response.statusCode == 301 ||
-        response.statusCode == 201 ||
-        response.statusCode == 200) {
+    if (response.statusCode == 301 || response.statusCode == 201 || response.statusCode == 200) {
       return 'OK';
     } else {
       print('error ${response.body}');
       throw Exception('Error');
+    }
+  }
+
+  static Future<List<Reserva>> getReservasByDateAndDoctor(Map<String, String> formValue) async {
+    List<Reserva> listaReservas = [];
+
+    String? fechaEdit = formValue['fechaCadena']!.split(' ')[0];
+    fechaEdit = fechaEdit.replaceAll('-', '');
+
+    print(fechaEdit);
+
+    Uri uri = Uri.http(url, '/stock-nutrinatalia/persona/${formValue['idDoctor']}/agenda?fecha=${fechaEdit}');
+
+    final response = await http.get(uri);
+    if (response.statusCode == 200) {
+      final data = jsonDecode(response.body);
+      for (var item in data) {
+        print(item);
+        listaReservas.add(
+          Reserva(
+            idReserva: item["idReserva"],
+            fechaCadena: item["fechaCadena"],
+            fecha: item["fecha"],
+            horaInicioCadena: item["horaInicioCadena"],
+            horaFinCadena: item["horaFinCadena"],
+            idEmpleado: item["idEmpleado"]["idPersona"],
+            nombreEmpleado: item["idEmpleado"] != null ? item["idEmpleado"]["nombre"] : '',
+            apellidoEmpleado: item["idEmpleado"] != null ? item["idEmpleado"]["apellido"] : '',
+            idCliente: item["idCliente"] != null ? item["idCliente"]["idPersona"] : 0,
+            nombreCliente: item["idCliente"] != null ? item["idCliente"]["nombre"] : '',
+            apellidoCliente: item["idCliente"] != null ? item["idCliente"]["apellido"] : '',
+            observacion: item["observacion"],
+            flagAsistio: item["flagAsistio"],
+            fechaDesdeCadena: item["fechaDesdeCadena"],
+            fechaHastaCadena: item["fechaHastaCadena"],
+          ),
+        );
+      }
+      return listaReservas;
+    } else {
+      print('error ${response.statusCode}');
+      print('error ${response.body}');
+      throw Exception('Error al obtener las reservas');
     }
   }
 }
