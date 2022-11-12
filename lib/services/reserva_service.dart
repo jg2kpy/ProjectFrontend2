@@ -40,17 +40,14 @@ class ReservaService {
 
   static Future<String> agregarReserva(Map<String, String> formValues) async {
     Uri uri = Uri.https(url, '/stock-nutrinatalia/reserva');
-    String? fechaEdit = formValues['fechaCadena']!.split(' ')[0];
-    fechaEdit = fechaEdit.replaceAll('-', '');
     int? idEmpleado = int.parse(formValues['idEmpleado']!);
     int? idCliente = int.parse(formValues['idCliente']!);
-    var fechaCadena = fechaEdit;
     var horaInicioCadena = formValues['horaInicioCadena'];
     var horaFinCadena = formValues['horaFinCadena'];
     var formFinal = {
       'idEmpleado': {'idPersona': idEmpleado},
-      'idCliente': {'idPersona': idEmpleado},
-      'fechaCadena': fechaCadena,
+      'idCliente': {'idPersona': idCliente},
+      'fechaCadena': formValues['fechaCadena'],
       'horaInicioCadena': horaInicioCadena,
       'horaFinCadena': horaFinCadena,
     };
@@ -63,14 +60,17 @@ class ReservaService {
       body: jsonEncode(formFinal),
     );
 
-    if (response.statusCode == 301 || response.statusCode == 201 || response.statusCode == 200) {
+    if (response.statusCode == 301 ||
+        response.statusCode == 201 ||
+        response.statusCode == 200) {
       return 'OK';
     } else {
       throw Exception('Error');
     }
   }
 
-  static Future<String> actualizarReserva(Map<String, String> formValues) async {
+  static Future<String> actualizarReserva(
+      Map<String, String> formValues) async {
     Uri uri = Uri.https(url, '/stock-nutrinatalia/reserva');
 
     int? idReserva = int.parse(formValues['ID']!);
@@ -89,7 +89,9 @@ class ReservaService {
       body: jsonEncode(formFinal),
     );
 
-    if (response.statusCode == 301 || response.statusCode == 201 || response.statusCode == 200) {
+    if (response.statusCode == 301 ||
+        response.statusCode == 201 ||
+        response.statusCode == 200) {
       return 'OK';
     } else {
       throw Exception('Error');
@@ -107,7 +109,9 @@ class ReservaService {
       },
     );
 
-    if (response.statusCode == 301 || response.statusCode == 201 || response.statusCode == 200) {
+    if (response.statusCode == 301 ||
+        response.statusCode == 201 ||
+        response.statusCode == 200) {
       return 'OK';
     } else {
       print('error ${response.body}');
@@ -115,7 +119,8 @@ class ReservaService {
     }
   }
 
-  static Future<List<Reserva>> getReservasByDateAndDoctor(Map<String, String> formValue) async {
+  static Future<List<Reserva>> getReservasByDateAndDoctor(
+      Map<String, String> formValue) async {
     List<Reserva> listaReservas = [];
 
     String? fechaEdit = formValue['fechaCadena']!.split(' ')[0];
@@ -123,7 +128,8 @@ class ReservaService {
 
     print(fechaEdit);
 
-    Uri uri = Uri.http(url, '/stock-nutrinatalia/persona/${formValue['idDoctor']}/agenda?fecha=${fechaEdit}');
+    Uri uri = Uri.http(url,
+        '/stock-nutrinatalia/persona/${formValue['idDoctor']}/agenda?fecha=${fechaEdit}');
 
     final response = await http.get(uri);
     if (response.statusCode == 200) {
@@ -138,11 +144,17 @@ class ReservaService {
             horaInicioCadena: item["horaInicioCadena"],
             horaFinCadena: item["horaFinCadena"],
             idEmpleado: item["idEmpleado"]["idPersona"],
-            nombreEmpleado: item["idEmpleado"] != null ? item["idEmpleado"]["nombre"] : '',
-            apellidoEmpleado: item["idEmpleado"] != null ? item["idEmpleado"]["apellido"] : '',
-            idCliente: item["idCliente"] != null ? item["idCliente"]["idPersona"] : 0,
-            nombreCliente: item["idCliente"] != null ? item["idCliente"]["nombre"] : '',
-            apellidoCliente: item["idCliente"] != null ? item["idCliente"]["apellido"] : '',
+            nombreEmpleado:
+                item["idEmpleado"] != null ? item["idEmpleado"]["nombre"] : '',
+            apellidoEmpleado: item["idEmpleado"] != null
+                ? item["idEmpleado"]["apellido"]
+                : '',
+            idCliente:
+                item["idCliente"] != null ? item["idCliente"]["idPersona"] : 0,
+            nombreCliente:
+                item["idCliente"] != null ? item["idCliente"]["nombre"] : '',
+            apellidoCliente:
+                item["idCliente"] != null ? item["idCliente"]["apellido"] : '',
             observacion: item["observacion"],
             flagAsistio: item["flagAsistio"],
             fechaDesdeCadena: item["fechaDesdeCadena"],

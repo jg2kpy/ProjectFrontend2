@@ -13,7 +13,8 @@ class SeleccionarAgendaScreen extends StatefulWidget {
   }) : super(key: key);
 
   @override
-  State<SeleccionarAgendaScreen> createState() => _SeleccionarAgendaScreenState();
+  State<SeleccionarAgendaScreen> createState() =>
+      _SeleccionarAgendaScreenState();
 }
 
 class _SeleccionarAgendaScreenState extends State<SeleccionarAgendaScreen> {
@@ -69,16 +70,27 @@ class _SeleccionarAgendaScreenState extends State<SeleccionarAgendaScreen> {
                       horaFinCadena: widget.reservas[index].horaFinCadena,
                       nombreCliente: widget.reservas[index].nombreCliente,
                       apellidoCliente: widget.reservas[index].apellidoCliente,
+                      idCliente: widget.reservas[index].idCliente,
+                      idEmpleado: widget.reservas[index].idEmpleado,
+                      fechaCadena: widget.reservas[index].fechaCadena,
                     );
                   } else {
-                    if (widget.reservas[index].nombreCliente!.toLowerCase().contains(_searchText.toLowerCase()) ||
-                        widget.reservas[index].apellidoCliente!.toLowerCase().contains(_searchText.toLowerCase())) {
+                    if (widget.reservas[index].nombreCliente!
+                            .toLowerCase()
+                            .contains(_searchText.toLowerCase()) ||
+                        widget.reservas[index].apellidoCliente!
+                            .toLowerCase()
+                            .contains(_searchText.toLowerCase())) {
                       return CustomAgendaCard(
                         idReserva: widget.reservas[index].idReserva,
-                        horaInicioCadena: widget.reservas[index].horaInicioCadena,
+                        horaInicioCadena:
+                            widget.reservas[index].horaInicioCadena,
                         horaFinCadena: widget.reservas[index].horaFinCadena,
                         nombreCliente: widget.reservas[index].nombreCliente,
                         apellidoCliente: widget.reservas[index].apellidoCliente,
+                        idCliente: widget.reservas[index].idCliente,
+                        idEmpleado: widget.reservas[index].idEmpleado,
+                        fechaCadena: widget.reservas[index].fechaCadena,
                       );
                     } else {
                       return Container();

@@ -1,7 +1,9 @@
 // ignore_for_file: unnecessary_brace_in_string_interps
 
 import 'package:flutter/material.dart';
+import 'package:project_frontend_2/models/reserva.dart';
 import 'package:project_frontend_2/screens/actualizar_reserva_screen.dart';
+import 'package:project_frontend_2/screens/screens.dart';
 import 'package:project_frontend_2/services/reserva_service.dart';
 
 import '../theme/app_theme.dart';
@@ -46,7 +48,8 @@ class CustomAgendaCard extends StatelessWidget {
           ListTile(
             leading: const Icon(Icons.design_services, color: AppTheme.primary),
             title: Text("${horaInicioCadena} - ${horaFinCadena}"),
-            subtitle: Text("Cliente : ${nombreCliente ?? ''} ${apellidoCliente ?? ''}"),
+            subtitle: Text(
+                "Cliente : ${nombreCliente ?? ''} ${apellidoCliente ?? ''}"),
           ),
           Padding(
             padding: const EdgeInsets.only(right: 5),
@@ -55,11 +58,27 @@ class CustomAgendaCard extends StatelessWidget {
               children: [
                 TextButton(
                   onPressed: () {
+                    var reserva = Reserva(
+                        idReserva: idReserva,
+                        fechaCadena: fechaCadena,
+                        fecha: fecha,
+                        horaInicioCadena: horaInicioCadena,
+                        horaFinCadena: horaFinCadena,
+                        idEmpleado: idEmpleado,
+                        idCliente: idCliente,
+                        apellidoEmpleado: apellidoEmpleado,
+                        nombreEmpleado: nombreEmpleado,
+                        nombreCliente: nombreCliente,
+                        apellidoCliente: apellidoCliente,
+                        observacion: observacion,
+                        flagAsistio: flagAsistio,
+                        fechaDesdeCadena: null,
+                        fechaHastaCadena: null);
                     Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (context) => ActualizarReservaScreen(
-                            idReserva: idReserva,
+                          builder: (context) => AgregarReservaScreen(
+                            reserva: reserva,
                           ),
                         ));
                   },

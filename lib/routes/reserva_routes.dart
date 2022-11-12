@@ -7,12 +7,6 @@ import '../screens/screens.dart';
 class ReservasRoutes {
   static final rutas = <MenuOption>[
     const MenuOption(
-      name: 'Agregar Reserva',
-      icon: Icons.person_add,
-      route: 'AgregarReserva',
-      screen: AgregarReservaScreen(),
-    ),
-    const MenuOption(
       name: 'Actualizar Reserva',
       icon: Icons.person_add,
       route: 'ActualizarReserva',
