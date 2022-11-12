@@ -97,6 +97,26 @@ class ReservaService {
         response.statusCode == 200) {
       return 'OK';
     } else {
+      throw Exception('Error');
+    }
+  }
+
+  static Future<String> cancelarReserva(int? id) async {
+    Uri uri = Uri.https(url, '/stock-nutrinatalia/reserva/${id}');
+
+    final response = await http.delete(
+      uri,
+      headers: <String, String>{
+        'usuario': 'usuario1',
+        'Content-Type': 'application/json; charset=UTF-8',
+      },
+    );
+
+    if (response.statusCode == 301 ||
+        response.statusCode == 201 ||
+        response.statusCode == 200) {
+      return 'OK';
+    } else {
       print('error ${response.body}');
       throw Exception('Error');
     }

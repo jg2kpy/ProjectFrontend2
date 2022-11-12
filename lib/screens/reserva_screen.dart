@@ -187,7 +187,7 @@ class _ReservaScreen extends State<ReservaScreen> {
                       },
                     );
                   } else if (snapshot.hasError) {
-                    return const Text('Error al obtener las fichas clinicas');
+                    return const Text('Error al obtener las reservas');
                   } else {
                     return const Center(child: CircularProgressIndicator());
                   }

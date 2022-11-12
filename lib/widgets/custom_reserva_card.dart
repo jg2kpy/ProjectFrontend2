@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:project_frontend_2/screens/actualizar_reserva_screen.dart';
+import 'package:project_frontend_2/services/reserva_service.dart';
 
 import '../theme/app_theme.dart';
 
@@ -79,6 +80,31 @@ class CustomReservaWidget extends StatelessWidget {
     );
   }
 
+  void displayDialogCancelar(BuildContext context) {
+    showDialog(
+      barrierDismissible: true,
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          elevation: 5,
+          title: const Text('Estas seguro que desea cancelar'),
+          shape: RoundedRectangleBorder(
+              borderRadius: BorderRadiusDirectional.circular(10)),
+          actions: [
+            TextButton(
+              onPressed: () => ReservaService.cancelarReserva(idReserva),
+              child: const Text('Si', style: TextStyle(color: Colors.red)),
+            ),
+            TextButton(
+              onPressed: () => Navigator.pop(context),
+              child: const Text('No'),
+            )
+          ],
+        );
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Card(
@@ -118,7 +144,7 @@ class CustomReservaWidget extends StatelessWidget {
                   ),
                 ),
                 TextButton(
-                  onPressed: () => displayDialogAndroid(context),
+                  onPressed: () => displayDialogCancelar(context),
                   child: const Text(
                     'Cancelar',
                     style: TextStyle(color: Color.fromARGB(255, 196, 19, 19)),
