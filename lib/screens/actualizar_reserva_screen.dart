@@ -5,18 +5,18 @@ import 'package:project_frontend_2/services/reserva_service.dart';
 import 'package:project_frontend_2/widgets/custom_input_field.dart';
 
 class ActualizarReservaScreen extends StatelessWidget {
-  const ActualizarReservaScreen({super.key});
+  final int? idReserva;
+
+  const ActualizarReservaScreen({super.key, this.idReserva});
 
   @override
   Widget build(BuildContext context) {
     final GlobalKey<FormState> formKey = GlobalKey<FormState>();
 
     final Map<String, String> formValues = {
-      'fechaCadena': '',
-      'horaInicioCadena': '',
-      'horaFinCadena': '',
-      'idEmpleado': '',
-      'idCliente': '',
+      'ID': idReserva.toString(),
+      'observacion': '',
+      'flagAsistio': '',
     };
 
     return Scaffold(
@@ -30,59 +30,39 @@ class ActualizarReservaScreen extends StatelessWidget {
             key: formKey,
             child: Column(
               children: [
-                DateTimeFormField(
-                  decoration: const InputDecoration(
-                    border: OutlineInputBorder(),
-                    hintText: 'Fecha',
-                    labelText: 'Fecha',
-                    icon: Icon(Icons.date_range),
-                  ),
-                  mode: DateTimeFieldPickerMode.date,
-                  autovalidateMode: AutovalidateMode.always,
-                  onDateSelected: (DateTime value) {
-                    formValues['fechaCadena'] = value.toString();
-                  },
-                ),
-                const SizedBox(height: 10),
+                const Text('Datos de la reserva'),
+                const SizedBox(height: 20),
                 CustomInputField(
-                  helperText: 'Hora Inicio',
-                  hintText: 'Apellido',
-                  labelText: 'Apellido',
-                  formProperty: 'horaInicioCadena',
-                  icon: Icons.timelapse,
+                  helperText: '$idReserva',
+                  hintText: '$idReserva',
+                  labelText: '$idReserva',
+                  formProperty: 'ID',
+                  enabled: false,
+                  icon: Icons.numbers,
                   formValues: formValues,
                 ),
                 const SizedBox(height: 10),
                 CustomInputField(
-                  helperText: 'Hora Fin',
-                  hintText: 'Hora Fin',
-                  labelText: 'Hora Fin',
-                  formProperty: 'horaFinCadena',
-                  icon: Icons.timelapse,
+                  helperText: 'Observacion',
+                  hintText: 'Observacion',
+                  labelText: 'Observacion',
+                  formProperty: 'observacion',
+                  icon: Icons.remove_red_eye,
                   formValues: formValues,
                 ),
                 const SizedBox(height: 10),
                 CustomInputField(
-                  helperText: 'ID Empleado',
-                  hintText: 'ID Empleado',
-                  labelText: 'ID Empleado',
-                  formProperty: 'idEmpleado',
-                  icon: Icons.person,
-                  formValues: formValues,
-                ),
-                const SizedBox(height: 10),
-                CustomInputField(
-                  helperText: 'ID Cliente',
-                  hintText: 'ID Cliente',
-                  labelText: 'ID Cliente',
-                  formProperty: 'idCliente',
-                  icon: Icons.person,
+                  helperText: 'S',
+                  hintText: 'S',
+                  labelText: 'Asistio',
+                  formProperty: 'flagAsistio',
+                  icon: Icons.check,
                   formValues: formValues,
                 ),
                 ElevatedButton(
                   onPressed: () {
                     late Future<String> respuesta =
-                        ReservaService.agregarReserva(formValues);
+                        ReservaService.actualizarReserva(formValues);
                     respuesta.then(
                       (value) => {
                         if (value == 'OK')
@@ -93,7 +73,7 @@ class ActualizarReservaScreen extends StatelessWidget {
                           {
                             ScaffoldMessenger.of(context).showSnackBar(
                               const SnackBar(
-                                content: Text('Error al agregar reserva'),
+                                content: Text('Error al editar la reserva'),
                               ),
                             )
                           }

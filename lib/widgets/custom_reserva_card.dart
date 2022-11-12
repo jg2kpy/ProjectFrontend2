@@ -1,6 +1,7 @@
 // ignore_for_file: unnecessary_brace_in_string_interps
 
 import 'package:flutter/material.dart';
+import 'package:project_frontend_2/screens/actualizar_reserva_screen.dart';
 
 import '../theme/app_theme.dart';
 
@@ -103,7 +104,13 @@ class CustomReservaWidget extends StatelessWidget {
                 ),
                 TextButton(
                   onPressed: () {
-                    Navigator.pushNamed(context, 'ActualizarReserva');
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => ActualizarReservaScreen(
+                            idReserva: idReserva,
+                          ),
+                        ));
                   },
                   child: const Text(
                     'Editar',
