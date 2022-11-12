@@ -45,8 +45,8 @@ class AgregarReservaScreen extends StatelessWidget {
                 const SizedBox(height: 10),
                 CustomInputField(
                   helperText: 'Hora Inicio',
-                  hintText: 'Apellido',
-                  labelText: 'Apellido',
+                  hintText: 'Hora Inicio',
+                  labelText: 'Hora Inicio',
                   formProperty: 'horaInicioCadena',
                   icon: Icons.timelapse,
                   formValues: formValues,
