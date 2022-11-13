@@ -5,6 +5,7 @@ import 'package:project_frontend_2/services/reserva_service.dart';
 import 'package:project_frontend_2/widgets/custom_input_field.dart';
 
 import '../models/reserva.dart';
+import '../theme/app_theme.dart';
 
 class AgregarReservaScreen extends StatelessWidget {
   final Reserva reserva;
@@ -36,6 +37,23 @@ class AgregarReservaScreen extends StatelessWidget {
             key: formKey,
             child: Column(
               children: [
+                Container(
+                  padding: const EdgeInsets.all(10),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    //Agregamos un inputfield que actualiza un valor a _searchText
+                    children: const [
+                      Center(child: Text('Paso 3 de 3')),
+                      SizedBox(height: 20),
+                      LinearProgressIndicator(
+                        value: 1,
+                        minHeight: 5,
+                        color: AppTheme.primary,
+                      ),
+                      SizedBox(height: 10),
+                    ],
+                  ),
+                ),
                 const Text('Datos de la reserva'),
                 const SizedBox(height: 20),
                 CustomInputField(
