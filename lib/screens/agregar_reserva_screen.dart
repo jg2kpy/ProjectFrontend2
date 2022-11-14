@@ -1,26 +1,34 @@
+// TODO Implement this library.
 import 'package:date_field/date_field.dart';
 import 'package:flutter/material.dart';
 import 'package:project_frontend_2/services/reserva_service.dart';
 import 'package:project_frontend_2/widgets/custom_input_field.dart';
 
+import '../models/reserva.dart';
+import '../theme/app_theme.dart';
+
 class AgregarReservaScreen extends StatelessWidget {
-  const AgregarReservaScreen({super.key});
+  final Reserva reserva;
+
+  const AgregarReservaScreen({super.key, required this.reserva});
 
   @override
   Widget build(BuildContext context) {
     final GlobalKey<FormState> formKey = GlobalKey<FormState>();
 
     final Map<String, String> formValues = {
-      'fechaCadena': '',
-      'horaInicioCadena': '',
-      'horaFinCadena': '',
-      'idEmpleado': '',
-      'idCliente': '',
+      'idEmpleado': reserva.idEmpleado.toString(),
+      'idCliente':
+          reserva.idCliente != null ? reserva.idCliente.toString() : '',
+      'horaInicioCadena': reserva.horaInicioCadena.toString(),
+      'horaFinCadena': reserva.horaFinCadena.toString(),
+      'fechaCadena': reserva.fechaCadena.toString(),
+      'observacion': '',
     };
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Agregar Reserva'),
+        title: const Text('Actualizar Reserva'),
       ),
       body: SingleChildScrollView(
         child: Padding(
@@ -29,55 +37,50 @@ class AgregarReservaScreen extends StatelessWidget {
             key: formKey,
             child: Column(
               children: [
-                DateTimeFormField(
-                  decoration: const InputDecoration(
-                    border: OutlineInputBorder(),
-                    hintText: 'Fecha',
-                    labelText: 'Fecha',
-                    icon: Icon(Icons.date_range),
+                Container(
+                  padding: const EdgeInsets.all(10),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    //Agregamos un inputfield que actualiza un valor a _searchText
+                    children: const [
+                      Center(child: Text('Paso 3 de 3')),
+                      SizedBox(height: 20),
+                      LinearProgressIndicator(
+                        value: 1,
+                        minHeight: 5,
+                        color: AppTheme.primary,
+                      ),
+                      SizedBox(height: 10),
+                    ],
                   ),
-                  mode: DateTimeFieldPickerMode.date,
-                  autovalidateMode: AutovalidateMode.always,
-                  onDateSelected: (DateTime value) {
-                    formValues['fechaCadena'] = value.toString();
-                  },
                 ),
-                const SizedBox(height: 10),
+                const Text('Datos de la reserva'),
+                const SizedBox(height: 20),
                 CustomInputField(
-                  helperText: 'Hora Inicio',
-                  hintText: 'Hora Inicio',
-                  labelText: 'Hora Inicio',
-                  formProperty: 'horaInicioCadena',
-                  icon: Icons.timelapse,
-                  formValues: formValues,
-                ),
-                const SizedBox(height: 10),
-                CustomInputField(
-                  helperText: 'Hora Fin',
-                  hintText: 'Hora Fin',
-                  labelText: 'Hora Fin',
-                  formProperty: 'horaFinCadena',
-                  icon: Icons.timelapse,
-                  formValues: formValues,
-                ),
-                const SizedBox(height: 10),
-                CustomInputField(
-                  helperText: 'ID Empleado',
-                  hintText: 'ID Empleado',
-                  labelText: 'ID Empleado',
-                  formProperty: 'idEmpleado',
-                  icon: Icons.person,
-                  formValues: formValues,
-                ),
-                const SizedBox(height: 10),
-                CustomInputField(
-                  helperText: 'ID Cliente',
-                  hintText: 'ID Cliente',
-                  labelText: 'ID Cliente',
+                  helperText: formValues['idCliente'] != "0"
+                      ? formValues['idCliente']
+                      : 'ID Cliente',
+                  hintText: formValues['idCliente'] != "0"
+                      ? formValues['idCliente']
+                      : 'ID Cliente',
+                  labelText: formValues['idCliente'] != "0"
+                      ? formValues['idCliente']
+                      : 'ID Cliente',
                   formProperty: 'idCliente',
-                  icon: Icons.person,
+                  enabled: formValues['idCliente'] == "0",
+                  icon: Icons.remove_red_eye,
                   formValues: formValues,
                 ),
+                const SizedBox(height: 10),
+                CustomInputField(
+                  helperText: 'Observacion',
+                  hintText: 'Observacion',
+                  labelText: 'Observacion',
+                  formProperty: 'observacion',
+                  icon: Icons.remove_red_eye,
+                  formValues: formValues,
+                ),
+                const SizedBox(height: 10),
                 ElevatedButton(
                   onPressed: () {
                     late Future<String> respuesta =
@@ -92,7 +95,7 @@ class AgregarReservaScreen extends StatelessWidget {
                           {
                             ScaffoldMessenger.of(context).showSnackBar(
                               const SnackBar(
-                                content: Text('Error al agregar reserva'),
+                                content: Text('Error al agregar la reserva'),
                               ),
                             )
                           }

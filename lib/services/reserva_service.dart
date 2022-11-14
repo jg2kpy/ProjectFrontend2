@@ -21,8 +21,8 @@ class ReservaService {
           horaInicioCadena: item["horaInicioCadena"],
           horaFinCadena: item["horaFinCadena"],
           idEmpleado: item["idEmpleado"]["idPersona"],
-          nombreEmpleado: item["idCliente"]["nombre"],
-          apellidoEmpleado: item["idCliente"]["apellido"],
+          nombreEmpleado: item["idEmpleado"]["nombre"],
+          apellidoEmpleado: item["idEmpleado"]["apellido"],
           idCliente: item["idCliente"]["idPersona"],
           nombreCliente: item["idCliente"]["nombre"],
           apellidoCliente: item["idCliente"]["apellido"],
@@ -40,17 +40,14 @@ class ReservaService {
 
   static Future<String> agregarReserva(Map<String, String> formValues) async {
     Uri uri = Uri.https(url, '/stock-nutrinatalia/reserva');
-    String? fechaEdit = formValues['fechaCadena']!.split(' ')[0];
-    fechaEdit = fechaEdit.replaceAll('-', '');
     int? idEmpleado = int.parse(formValues['idEmpleado']!);
     int? idCliente = int.parse(formValues['idCliente']!);
-    var fechaCadena = fechaEdit;
     var horaInicioCadena = formValues['horaInicioCadena'];
     var horaFinCadena = formValues['horaFinCadena'];
     var formFinal = {
       'idEmpleado': {'idPersona': idEmpleado},
-      'idCliente': {'idPersona': idEmpleado},
-      'fechaCadena': fechaCadena,
+      'idCliente': {'idPersona': idCliente},
+      'fechaCadena': formValues['fechaCadena'],
       'horaInicioCadena': horaInicioCadena,
       'horaFinCadena': horaFinCadena,
     };
@@ -119,6 +116,57 @@ class ReservaService {
     } else {
       print('error ${response.body}');
       throw Exception('Error');
+    }
+  }
+
+  static Future<List<Reserva>> getReservasByDateAndDoctor(
+      Map<String, String> formValue) async {
+    List<Reserva> listaReservas = [];
+
+    String? fechaEdit = formValue['fechaCadena']!.split(' ')[0];
+    fechaEdit = fechaEdit.replaceAll('-', '');
+
+    print(fechaEdit);
+
+    Uri uri = Uri.http(url,
+        '/stock-nutrinatalia/persona/${formValue['idDoctor']}/agenda?fecha=${fechaEdit}');
+
+    final response = await http.get(uri);
+    if (response.statusCode == 200) {
+      final data = jsonDecode(response.body);
+      for (var item in data) {
+        print(item);
+        listaReservas.add(
+          Reserva(
+            idReserva: item["idReserva"],
+            fechaCadena: item["fechaCadena"],
+            fecha: item["fecha"],
+            horaInicioCadena: item["horaInicioCadena"],
+            horaFinCadena: item["horaFinCadena"],
+            idEmpleado: item["idEmpleado"]["idPersona"],
+            nombreEmpleado:
+                item["idEmpleado"] != null ? item["idEmpleado"]["nombre"] : '',
+            apellidoEmpleado: item["idEmpleado"] != null
+                ? item["idEmpleado"]["apellido"]
+                : '',
+            idCliente:
+                item["idCliente"] != null ? item["idCliente"]["idPersona"] : 0,
+            nombreCliente:
+                item["idCliente"] != null ? item["idCliente"]["nombre"] : '',
+            apellidoCliente:
+                item["idCliente"] != null ? item["idCliente"]["apellido"] : '',
+            observacion: item["observacion"],
+            flagAsistio: item["flagAsistio"],
+            fechaDesdeCadena: item["fechaDesdeCadena"],
+            fechaHastaCadena: item["fechaHastaCadena"],
+          ),
+        );
+      }
+      return listaReservas;
+    } else {
+      print('error ${response.statusCode}');
+      print('error ${response.body}');
+      throw Exception('Error al obtener las reservas');
     }
   }
 }

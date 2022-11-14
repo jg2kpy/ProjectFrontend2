@@ -50,8 +50,7 @@ class _ReservaScreen extends State<ReservaScreen> {
                         labelText: 'Nombre o Apellido de Empleado',
                         prefixIcon: Icon(Icons.person),
                       ),
-                      onChanged: ((value) =>
-                          setState(() => {_searchFisio = value})),
+                      onChanged: ((value) => setState(() => {_searchFisio = value})),
                     ),
                     const SizedBox(height: 10),
                     TextField(
@@ -59,8 +58,7 @@ class _ReservaScreen extends State<ReservaScreen> {
                         labelText: 'Nombre o Apellido de Cliente',
                         prefixIcon: Icon(Icons.person),
                       ),
-                      onChanged: ((value) =>
-                          setState(() => {_searchPaciente = value})),
+                      onChanged: ((value) => setState(() => {_searchPaciente = value})),
                     ),
                     const SizedBox(height: 10),
                     Row(
@@ -128,10 +126,8 @@ class _ReservaScreen extends State<ReservaScreen> {
                             ((snapshot.data![index].nombreEmpleado != null &&
                                     snapshot.data![index].nombreEmpleado!
                                         .toLowerCase()
-                                        .contains(
-                                            _searchFisio.toLowerCase())) ||
-                                (snapshot.data![index].apellidoEmpleado !=
-                                        null &&
+                                        .contains(_searchFisio.toLowerCase())) ||
+                                (snapshot.data![index].apellidoEmpleado != null &&
                                     snapshot.data![index].apellidoEmpleado!
                                         .toLowerCase()
                                         .contains(_searchFisio.toLowerCase())));
@@ -140,44 +136,31 @@ class _ReservaScreen extends State<ReservaScreen> {
                             ((snapshot.data![index].nombreCliente != null &&
                                     snapshot.data![index].nombreCliente!
                                         .toLowerCase()
-                                        .contains(
-                                            _searchPaciente.toLowerCase())) ||
-                                (snapshot.data![index].apellidoCliente !=
-                                        null &&
+                                        .contains(_searchPaciente.toLowerCase())) ||
+                                (snapshot.data![index].apellidoCliente != null &&
                                     snapshot.data![index].apellidoCliente!
                                         .toLowerCase()
-                                        .contains(
-                                            _searchPaciente.toLowerCase())));
+                                        .contains(_searchPaciente.toLowerCase())));
 
-                        DateTime fecha =
-                            DateTime.parse(snapshot.data![index].fecha!);
+                        DateTime fecha = DateTime.parse(snapshot.data![index].fecha!);
                         bool flagDesde = _searchFechaDesde == null ||
-                            (_searchFechaDesde != null &&
-                                fecha.isAfter(_searchFechaDesde!));
+                            (_searchFechaDesde != null && fecha.isAfter(_searchFechaDesde!));
                         bool flagHasta = _searchFechaHasta == null ||
-                            (_searchFechaHasta != null &&
-                                fecha.isBefore(_searchFechaHasta!));
+                            (_searchFechaHasta != null && fecha.isBefore(_searchFechaHasta!));
 
-                        if (flagFisio &&
-                            flagPaciente &&
-                            flagDesde &&
-                            flagHasta) {
+                        if (flagFisio && flagPaciente && flagDesde && flagHasta) {
                           return CustomReservaWidget(
                             idReserva: snapshot.data![index].idReserva,
                             fechaCadena: snapshot.data![index].fechaCadena,
                             fecha: snapshot.data![index].fecha,
-                            horaInicioCadena:
-                                snapshot.data![index].horaInicioCadena,
+                            horaInicioCadena: snapshot.data![index].horaInicioCadena,
                             horaFinCadena: snapshot.data![index].horaFinCadena,
                             idEmpleado: snapshot.data![index].idEmpleado,
                             idCliente: snapshot.data![index].idCliente,
-                            nombreEmpleado:
-                                snapshot.data![index].nombreEmpleado,
-                            apellidoEmpleado:
-                                snapshot.data![index].apellidoEmpleado,
+                            nombreEmpleado: snapshot.data![index].nombreEmpleado,
+                            apellidoEmpleado: snapshot.data![index].apellidoEmpleado,
                             nombreCliente: snapshot.data![index].nombreCliente,
-                            apellidoCliente:
-                                snapshot.data![index].apellidoCliente,
+                            apellidoCliente: snapshot.data![index].apellidoCliente,
                             observacion: snapshot.data![index].observacion,
                             flagAsistio: snapshot.data![index].flagAsistio,
                           );
@@ -199,7 +182,7 @@ class _ReservaScreen extends State<ReservaScreen> {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          Navigator.pushNamed(context, 'AgregarReserva');
+          Navigator.pushNamed(context, 'elegirDoctor');
         },
         backgroundColor: AppTheme.primary,
         child: const Icon(Icons.add),

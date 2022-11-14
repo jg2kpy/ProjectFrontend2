@@ -13,5 +13,11 @@ class PacientesRoutes {
       route: 'AgregarPaciente',
       screen: AgregarPacienteScreen(),
     ),
+    const MenuOption(
+      name: 'Elegir Doctor',
+      icon: Icons.person_add,
+      route: 'elegirDoctor',
+      screen: SelectDoctorScreen(),
+    ),
   ];
 }
