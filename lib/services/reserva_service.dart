@@ -99,7 +99,7 @@ class ReservaService {
   }
 
   static Future<String> cancelarReserva(int? id) async {
-    Uri uri = Uri.https(url, '/stock-nutrinatalia/reserva/${id}');
+    Uri uri = Uri.https(url, '/stock-nutrinatalia/reserva/$id');
 
     final response = await http.delete(
       uri,
@@ -114,7 +114,6 @@ class ReservaService {
         response.statusCode == 200) {
       return 'OK';
     } else {
-      print('error ${response.body}');
       throw Exception('Error');
     }
   }
@@ -126,16 +125,13 @@ class ReservaService {
     String? fechaEdit = formValue['fechaCadena']!.split(' ')[0];
     fechaEdit = fechaEdit.replaceAll('-', '');
 
-    print(fechaEdit);
-
     Uri uri = Uri.http(url,
-        '/stock-nutrinatalia/persona/${formValue['idDoctor']}/agenda?fecha=${fechaEdit}');
+        '/stock-nutrinatalia/persona/${formValue['idDoctor']}/agenda?fecha=$fechaEdit');
 
     final response = await http.get(uri);
     if (response.statusCode == 200) {
       final data = jsonDecode(response.body);
       for (var item in data) {
-        print(item);
         listaReservas.add(
           Reserva(
             idReserva: item["idReserva"],
@@ -164,8 +160,6 @@ class ReservaService {
       }
       return listaReservas;
     } else {
-      print('error ${response.statusCode}');
-      print('error ${response.body}');
       throw Exception('Error al obtener las reservas');
     }
   }

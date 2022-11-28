@@ -2,9 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:project_frontend_2/models/reserva.dart';
-import 'package:project_frontend_2/screens/actualizar_reserva_screen.dart';
 import 'package:project_frontend_2/screens/screens.dart';
-import 'package:project_frontend_2/services/reserva_service.dart';
 
 import '../theme/app_theme.dart';
 
